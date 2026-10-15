@@ -45,7 +45,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=3">
 </head>
 <body class="bg-[#FCFAF7] text-[#2D2D2D] antialiased selection:bg-[#8C1823] selection:text-white">
 
@@ -1236,7 +1236,87 @@
     </div>
   </div>
 
-  <!-- Main JavaScript File -->
-  <script src="assets/js/main.js"></script>
+  <!-- Main JavaScript File with Cache-Buster -->
+  <script src="assets/js/main.js?v=3"></script>
+
+  <!-- Inline Direct Scroll Listener Failsafe -->
+  <script>
+    (function() {
+      function checkHeaderScroll() {
+        var header = document.getElementById('main-header');
+        var logo = document.getElementById('header-logo');
+        var hotlineBtn = document.getElementById('header-hotline-btn');
+        var ctaBtn = document.getElementById('header-cta-btn');
+        var mobileToggle = document.getElementById('mobile-menu-toggle');
+        var navLinks = document.querySelectorAll('#main-header nav .nav-item');
+        if (!header || !logo) return;
+
+        var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        
+        if (scrollPos > 15) {
+          header.classList.add('scrolled');
+          header.style.backgroundColor = '#8C1823';
+          header.style.borderBottomColor = 'rgba(255, 255, 255, 0.15)';
+          header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.25)';
+          
+          if (!logo.src.includes('logo3.png')) {
+            logo.src = 'assets/logo/logo3.png';
+          }
+          
+          navLinks.forEach(function(link) {
+            link.style.color = '#FFFFFF';
+          });
+          
+          if (hotlineBtn) {
+            hotlineBtn.style.borderColor = 'rgba(255, 255, 255, 0.85)';
+            hotlineBtn.style.color = '#FFFFFF';
+            hotlineBtn.style.backgroundColor = 'transparent';
+          }
+          
+          if (ctaBtn) {
+            ctaBtn.style.backgroundColor = '#C89D35';
+            ctaBtn.style.color = '#FFFFFF';
+          }
+          
+          if (mobileToggle) {
+            mobileToggle.style.color = '#FFFFFF';
+          }
+        } else {
+          header.classList.remove('scrolled');
+          header.style.backgroundColor = '#FFFFFF';
+          header.style.borderBottomColor = '#E8E2D5';
+          header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+          
+          if (!logo.src.includes('logo1.png')) {
+            logo.src = 'assets/logo/logo1.png';
+          }
+          
+          navLinks.forEach(function(link) {
+            link.style.color = '';
+          });
+          
+          if (hotlineBtn) {
+            hotlineBtn.style.borderColor = '#8C1823';
+            hotlineBtn.style.color = '#8C1823';
+            hotlineBtn.style.backgroundColor = '';
+          }
+          
+          if (ctaBtn) {
+            ctaBtn.style.backgroundColor = '#8C1823';
+            ctaBtn.style.color = '#FFFFFF';
+          }
+          
+          if (mobileToggle) {
+            mobileToggle.style.color = '';
+          }
+        }
+      }
+
+      window.addEventListener('scroll', checkHeaderScroll, { passive: true });
+      document.addEventListener('scroll', checkHeaderScroll, { passive: true });
+      window.addEventListener('DOMContentLoaded', checkHeaderScroll);
+      checkHeaderScroll();
+    })();
+  </script>
 </body>
 </html>

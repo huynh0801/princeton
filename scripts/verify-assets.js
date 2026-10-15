@@ -16,9 +16,10 @@ while ((match = regex.exec(html)) !== null) {
 console.log('--- Checking local references in index.html ---');
 let allPassed = true;
 for (const file of localFiles) {
-  const decoded = decodeURIComponent(file);
+  const cleanUrl = file.split('?')[0];
+  const decoded = decodeURIComponent(cleanUrl);
   const exists = fs.existsSync(decoded);
-  console.log(`${exists ? '✅' : '❌'} ${decoded}`);
+  console.log(`${exists ? '✅' : '❌'} ${decoded} (from ${file})`);
   if (!exists) allPassed = false;
 }
 

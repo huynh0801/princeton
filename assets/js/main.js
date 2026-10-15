@@ -310,22 +310,77 @@ function initBackToTop() {
 function initHeaderScroll() {
   const header = document.getElementById('main-header');
   const logo = document.getElementById('header-logo');
+  const hotlineBtn = document.getElementById('header-hotline-btn');
+  const ctaBtn = document.getElementById('header-cta-btn');
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const navLinks = document.querySelectorAll('#main-header nav .nav-item');
+
   if (!header || !logo) return;
 
   const handleScroll = () => {
-    if (window.scrollY > 40) {
-      if (!header.classList.contains('scrolled')) {
-        header.classList.add('scrolled');
+    const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    
+    // Ngưỡng cuộn nhạy (15px) ngay khi cuộn qua đầu trang
+    if (scrollPos > 15) {
+      header.classList.add('scrolled');
+      header.style.backgroundColor = '#8C1823';
+      header.style.borderBottomColor = 'rgba(255, 255, 255, 0.15)';
+      header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.25)';
+      
+      if (!logo.src.includes('logo3.png')) {
         logo.src = 'assets/logo/logo3.png';
       }
+
+      navLinks.forEach(link => {
+        link.style.color = '#FFFFFF';
+      });
+
+      if (hotlineBtn) {
+        hotlineBtn.style.borderColor = 'rgba(255, 255, 255, 0.85)';
+        hotlineBtn.style.color = '#FFFFFF';
+        hotlineBtn.style.backgroundColor = 'transparent';
+      }
+
+      if (ctaBtn) {
+        ctaBtn.style.backgroundColor = '#C89D35';
+        ctaBtn.style.color = '#FFFFFF';
+      }
+
+      if (mobileToggle) {
+        mobileToggle.style.color = '#FFFFFF';
+      }
     } else {
-      if (header.classList.contains('scrolled')) {
-        header.classList.remove('scrolled');
+      header.classList.remove('scrolled');
+      header.style.backgroundColor = '#FFFFFF';
+      header.style.borderBottomColor = '#E8E2D5';
+      header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+
+      if (!logo.src.includes('logo1.png')) {
         logo.src = 'assets/logo/logo1.png';
+      }
+
+      navLinks.forEach(link => {
+        link.style.color = '';
+      });
+
+      if (hotlineBtn) {
+        hotlineBtn.style.borderColor = '#8C1823';
+        hotlineBtn.style.color = '#8C1823';
+        hotlineBtn.style.backgroundColor = '';
+      }
+
+      if (ctaBtn) {
+        ctaBtn.style.backgroundColor = '#8C1823';
+        ctaBtn.style.color = '#FFFFFF';
+      }
+
+      if (mobileToggle) {
+        mobileToggle.style.color = '';
       }
     }
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
+  document.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 }
