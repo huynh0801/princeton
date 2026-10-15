@@ -76,37 +76,36 @@
   </div>
 
   <!-- ================= NAVBAR ================= -->
-  <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-[#E8E2D5]">
+  <header id="main-header" class="sticky top-0 z-50 bg-white shadow-sm border-b border-[#E8E2D5]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
         
         <!-- Logo -->
-        <a href="#" class="flex items-center gap-3 shrink-0">
-          <img src="assets/logo/logo1.png" alt="Princeton Academy" class="h-12 w-auto object-contain">
+        <a href="#" class="flex items-center gap-3 shrink-0 py-2">
+          <img id="header-logo" src="assets/logo/logo1.png" alt="Princeton Academy" class="h-12 sm:h-14 w-auto object-contain transition-all duration-300">
         </a>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden lg:flex items-center gap-7 text-[13px] font-semibold text-gray-700 uppercase tracking-wider">
-          <a href="#about" class="hover:text-[#8C1823] transition-colors py-2 border-b-2 border-transparent hover:border-[#8C1823]">Về Chúng Tôi</a>
-          <a href="#pillars" class="hover:text-[#8C1823] transition-colors py-2 border-b-2 border-transparent hover:border-[#8C1823]">03 Trụ Cột</a>
-          <a href="#curriculum" class="hover:text-[#8C1823] transition-colors py-2 border-b-2 border-transparent hover:border-[#8C1823]">CT PEAK & ECT</a>
-          <a href="#testimonials" class="hover:text-[#8C1823] transition-colors py-2 border-b-2 border-transparent hover:border-[#8C1823]">Đối Tác Đánh Giá</a>
-          <a href="#franchise" class="hover:text-[#8C1823] transition-colors py-2 border-b-2 border-transparent hover:border-[#8C1823]">Đặc Quyền Hợp Tác</a>
-          <a href="#campuses" class="hover:text-[#8C1823] transition-colors py-2 border-b-2 border-transparent hover:border-[#8C1823]">10 Cơ Sở</a>
+        <!-- Desktop Navigation Links - TẤT CẢ TRÊN 1 DÒNG (WHITESPACE-NOWRAP) -->
+        <nav class="hidden lg:flex items-center gap-5 xl:gap-8 text-[12px] xl:text-[13px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">
+          <a href="#pillars" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">03 Trụ Cột</a>
+          <a href="#curriculum" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">CT PEAK & ECT</a>
+          <a href="#testimonials" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">Đối Tác Đánh Giá</a>
+          <a href="#franchise" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">Đặc Quyền Hợp Tác</a>
+          <a href="#campuses" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">10 Cơ Sở</a>
         </nav>
 
         <!-- Header CTA Buttons -->
-        <div class="hidden sm:flex items-center gap-3">
-          <a href="tel:0968822291" class="px-4 py-2 border border-[#8C1823] text-[#8C1823] text-xs font-bold uppercase tracking-wider hover:bg-red-50 transition-colors">
+        <div class="hidden sm:flex items-center gap-3 shrink-0 whitespace-nowrap">
+          <a id="header-hotline-btn" href="tel:0968822291" class="px-4 py-2 border border-[#8C1823] text-[#8C1823] text-xs font-bold uppercase tracking-wider hover:bg-red-50 transition-colors">
             Hotline: 0968.822.291
           </a>
-          <a href="#register" class="bg-[#8C1823] hover:bg-[#70111A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 transition-colors shadow-sm">
+          <a id="header-cta-btn" href="#register" class="bg-[#8C1823] hover:bg-[#70111A] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 transition-colors shadow-sm">
             Đăng Ký Ngay
           </a>
         </div>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-toggle" class="lg:hidden text-gray-700 hover:text-[#8C1823] p-2 focus:outline-none" aria-label="Menu">
+        <button id="mobile-menu-toggle" class="lg:hidden text-gray-700 hover:text-[#8C1823] p-2 focus:outline-none transition-colors" aria-label="Menu">
           <i class="fa-solid fa-bars text-xl"></i>
         </button>
 
@@ -115,7 +114,6 @@
 
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-gray-200 px-6 py-4 space-y-3">
-      <a href="#about" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">Về Chúng Tôi</a>
       <a href="#pillars" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">03 Trụ Cột Giáo Dục</a>
       <a href="#curriculum" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">Chương Trình PEAK & ECT</a>
       <a href="#testimonials" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">Đối Tác Nói Gì</a>
@@ -225,19 +223,15 @@
   <section id="pillars" class="py-20 bg-white relative border-b border-[#E8E2D5]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-4xl mx-auto mb-16">
-        <span class="section-badge">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 border border-red-200">
           TRIẾT LÝ CỐT LÕI
         </span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl section-title mt-4">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
           03 TRỤ CỘT NUÔI DƯỠNG TRỌN VẸN
         </h2>
-        <div class="title-ornament">
-          <span class="bar"></span>
-          <span class="diamond"></span>
-          <span class="bar"></span>
-        </div>
-        <p class="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
+        <p class="text-gray-600 text-sm md:text-base">
           Tại Princeton Academy, chúng tôi kiến tạo môi trường để trẻ phát triển cân bằng và bền vững cả Thể chất, Trí tuệ và Tâm hồn.
         </p>
       </div>
@@ -361,19 +355,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Section Header -->
-      <div class="text-center max-w-4xl mx-auto mb-16">
-        <span class="section-badge">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-100/60 px-3 py-1 border border-red-200">
           HỌC THUẬT QUỐC TẾ
         </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl section-title mt-4">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
           SỰ KẾT HỢP HOÀN HẢO GIỮA PHƯƠNG PHÁP TƯ DUY & CHƯƠNG TRÌNH QUỐC TẾ
         </h2>
-        <div class="title-ornament">
-          <span class="bar"></span>
-          <span class="diamond"></span>
-          <span class="bar"></span>
-        </div>
-        <p class="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
+        <p class="text-gray-600 text-sm md:text-base">
           Chương trình học độc quyền thiết kế những điều kiện để việc học tự nhiên diễn ra qua chơi có chủ đích và rèn luyện tư duy phản biện từ sớm.
         </p>
       </div>
@@ -556,19 +546,14 @@
 
       <!-- 3. CÁC LỚP HỌC THEO ĐỘ TUỔI (CHUẨN THEO ẢNH MẪU THIẾT KẾ) -->
       <div class="mt-20">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-          <span class="section-badge-gold">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="text-xs font-bold text-[#8C1823] uppercase tracking-widest bg-red-100/60 px-3 py-1 border border-red-200">
             LỘ TRÌNH THEO ĐỘ TUỔI
           </span>
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl section-title mt-3">
+          <h3 class="text-xl sm:text-2xl font-bold text-[#8C1823] mt-2 uppercase">
             CHƯƠNG TRÌNH LỚP HỌC THEO TỪNG GIAI ĐOẠN
           </h3>
-          <div class="title-ornament">
-            <span class="bar"></span>
-            <span class="diamond"></span>
-            <span class="bar"></span>
-          </div>
-          <p class="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto">Thiết kế lộ trình phát triển tâm sinh lý và năng lực nhận thức chuyên biệt cho từng lứa tuổi</p>
+          <p class="text-xs text-gray-600 mt-1">Thiết kế lộ trình phát triển tâm sinh lý và năng lực nhận thức chuyên biệt</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -679,19 +664,15 @@
   <section id="testimonials" class="py-20 bg-white relative border-b border-[#E8E2D5]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-4xl mx-auto mb-16">
-        <span class="section-badge">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 border border-red-100">
           MINH CHỨNG THỰC TẾ
         </span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl section-title mt-4">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
           ĐỐI TÁC NÓI GÌ VỀ CHÚNG TÔI
         </h2>
-        <div class="title-ornament">
-          <span class="bar"></span>
-          <span class="diamond"></span>
-          <span class="bar"></span>
-        </div>
-        <p class="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
+        <p class="text-gray-600 text-sm md:text-base">
           Sự tin tưởng và đồng hành từ các nhà sáng lập, chủ trường tại 10 cơ sở toàn quốc là thước đo uy tín lớn nhất của Princeton Academy.
         </p>
       </div>
@@ -781,21 +762,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Section Title -->
-      <div class="text-center max-w-4xl mx-auto mb-16">
-        <span class="section-badge">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-100/60 px-3 py-1 border border-red-200">
           HỢP TÁC CHIẾN LƯỢC CÙNG PRINCETON
         </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl section-title mt-4 leading-snug">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase leading-snug">
           BẠN LÀM CHỦ NGÔI TRƯỜNG. <br class="hidden sm:inline">
-          <span class="text-[#231F20]">PRINCETON MANG ĐẾN HỆ THỐNG ĐỂ CÙNG PHÁT TRIỂN.</span>
+          <span class="text-[#2D2D2D]">PRINCETON MANG ĐẾN HỆ THỐNG ĐỂ CÙNG PHÁT TRIỂN.</span>
         </h2>
-        <div class="title-ornament">
-          <span class="bar"></span>
-          <span class="diamond"></span>
-          <span class="bar"></span>
-        </div>
-        <p class="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-          Mô hình giáo dục bài bản, đã khẳng định thành công tại <strong class="text-[#8C1823]">10 cơ sở toàn quốc</strong>, nơi bản sắc địa phương của nhà đầu tư kết hợp hài hòa cùng tiêu chuẩn quốc tế.
+        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
+        <p class="text-gray-600 text-sm md:text-base">
+          Mô hình giáo dục bài bản, đã khẳng định thành công tại <strong>10 cơ sở toàn quốc</strong>, nơi bản sắc địa phương của nhà đầu tư kết hợp hài hòa cùng tiêu chuẩn quốc tế.
         </p>
       </div>
 
@@ -827,19 +804,11 @@
 
       <!-- 05 Đặc Quyền Chuyển Giao Toàn Diện - Clean Architectural Cards without Icon Clutter -->
       <div>
-        <div class="text-center max-w-3xl mx-auto mb-12">
-          <span class="section-badge-gold">
-            BẢO TRỢ TOÀN DIỆN
-          </span>
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl section-title mt-3">
+        <div class="text-center mb-10">
+          <h3 class="text-xl sm:text-2xl font-bold text-[#8C1823] uppercase">
             05 ĐẶC QUYỀN CHUYỂN GIAO TOÀN DIỆN
           </h3>
-          <div class="title-ornament">
-            <span class="bar"></span>
-            <span class="diamond"></span>
-            <span class="bar"></span>
-          </div>
-          <p class="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto">Gói bảo trợ trọn vòng đời từ quy hoạch, đào tạo đến vận hành thực chiến</p>
+          <p class="text-xs text-gray-600 mt-1">Gói bảo trợ trọn vòng đời từ quy hoạch, đào tạo đến vận hành thực chiến</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
@@ -929,19 +898,15 @@
   <section id="campuses" class="py-20 bg-white relative border-b border-[#E8E2D5]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-4xl mx-auto mb-16">
-        <span class="section-badge">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 border border-red-100">
           MẠNG LƯỚI TOÀN QUỐC
         </span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl section-title mt-4">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
           HỆ THỐNG CƠ SỞ PRINCETON ACADEMY
         </h2>
-        <div class="title-ornament">
-          <span class="bar"></span>
-          <span class="diamond"></span>
-          <span class="bar"></span>
-        </div>
-        <p class="text-gray-700 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
+        <p class="text-gray-600 text-sm md:text-base">
           Mạng lưới 10 cơ sở tại các thành phố trọng điểm: Hải Phòng, Hà Nội, Hưng Yên, Đà Nẵng và TP. Hồ Chí Minh.
         </p>
       </div>

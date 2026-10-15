@@ -9,7 +9,6 @@
    - Accent Gold: #C89D35
    - Warm Cream: #FAF7F2
    - Clean, sharp architectural lines (hạn chế bo góc, hạn chế icon)
-   - Prominent, prestigious academic typography
    ========================================================================== */
 
 :root {
@@ -51,75 +50,54 @@ html {
   background: var(--color-primary-dark);
 }
 
-/* ==========================================================================
-   Section Title & Badge Enhancements (Tiêu đề nổi bật, bề thế)
-   ========================================================================== */
-.section-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 18px;
-  background-color: #8C1823;
-  color: #FFFFFF;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border-left: 3px solid #C89D35;
-  box-shadow: 0 2px 8px rgba(140, 24, 35, 0.18);
+/* Header Sticky Transitions & Scrolled State */
+#main-header {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.section-badge-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 18px;
-  background-color: #FAF5EB;
-  color: #8C1823;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border: 1px solid #C89D35;
-  border-left: 4px solid #8C1823;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+#main-header.scrolled {
+  background-color: #8C1823 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
-.section-title {
-  color: #8C1823;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+#main-header.scrolled .nav-item {
+  color: #FFFFFF !important;
 }
 
-.title-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 14px auto 18px auto;
+#main-header.scrolled .nav-item:hover {
+  color: #F4E2B2 !important;
+  border-bottom-color: #C89D35 !important;
 }
 
-.title-ornament .bar {
-  height: 2px;
-  width: 50px;
-  background-color: #C89D35;
+#main-header.scrolled #header-hotline-btn {
+  border-color: rgba(255, 255, 255, 0.75) !important;
+  color: #FFFFFF !important;
+  background-color: transparent !important;
 }
 
-.title-ornament .diamond {
-  width: 8px;
-  height: 8px;
-  background-color: #8C1823;
-  transform: rotate(45deg);
+#main-header.scrolled #header-hotline-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+#main-header.scrolled #header-cta-btn {
+  background-color: #C89D35 !important;
+  color: #FFFFFF !important;
+}
+
+#main-header.scrolled #header-cta-btn:hover {
+  background-color: #B28827 !important;
+}
+
+#main-header.scrolled #mobile-menu-toggle {
+  color: #FFFFFF !important;
 }
 
 /* Card Subtle Glass & Sharp Architecture */
 .princeton-card {
   background: #FFFFFF;
   border: 1px solid #E8E3DA;
-  border-radius: 2px;
+  border-radius: 0px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   transition: all 0.25s ease;
 }
@@ -163,7 +141,7 @@ html {
   width: 100%;
   height: 100%;
   min-height: 480px;
-  border-radius: 2px;
+  border-radius: 0px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
   border: 1px solid #D9D2C7;

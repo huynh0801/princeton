@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormSubmissions();
   initMobileMenu();
   initBackToTop();
+  initHeaderScroll();
 });
 
 // Render danh sách 10 cơ sở - Phong cách vuông vức, tinh giản
@@ -303,4 +304,28 @@ function initBackToTop() {
   btt.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+}
+
+// Header scroll effect: chuyển sang màu đỏ và đổi sang logo3.png
+function initHeaderScroll() {
+  const header = document.getElementById('main-header');
+  const logo = document.getElementById('header-logo');
+  if (!header || !logo) return;
+
+  const handleScroll = () => {
+    if (window.scrollY > 40) {
+      if (!header.classList.contains('scrolled')) {
+        header.classList.add('scrolled');
+        logo.src = 'assets/logo/logo3.png';
+      }
+    } else {
+      if (header.classList.contains('scrolled')) {
+        header.classList.remove('scrolled');
+        logo.src = 'assets/logo/logo1.png';
+      }
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 }
