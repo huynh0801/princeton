@@ -96,16 +96,46 @@ html {
 /* Card Subtle Glass & Sharp Architecture */
 .princeton-card {
   background: #FFFFFF;
-  border: 1px solid #E8E3DA;
+  border: 1px solid #DCD7CE;
   border-radius: 0px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .princeton-card:hover {
   transform: translateY(-3px);
-  border-color: #C89D35;
-  box-shadow: 0 10px 24px rgba(140, 24, 35, 0.08);
+  border-color: #8C1823;
+  box-shadow: 0 12px 30px rgba(140, 24, 35, 0.14);
+}
+
+/* Prominent Bar Card & Drop Shadows for 5 Subjects */
+.princeton-bar-card {
+  background: #FFFFFF;
+  border: 1px solid #DCD7CE;
+  border-radius: 0px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.princeton-bar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(140, 24, 35, 0.14);
+}
+
+.badge-float-shadow {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.princeton-showcase-frame {
+  background: #FFFFFF;
+  border: 1px solid #DCD7CE;
+  border-radius: 0px;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.princeton-showcase-frame:hover {
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.16);
 }
 
 /* Gold Gradient Accents */
