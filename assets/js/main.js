@@ -8,7 +8,7 @@
 // Hướng dẫn: Dán Web App URL của Google Apps Script vào biến dưới đây.
 // Ví dụ: const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/.../exec";
 // =========================================================================
-const GOOGLE_SHEET_URL = "";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxHnqITRELmcUuhShN5Rtse3TH-cidi8FurSkdqLFJyMgVWxsqFZaIT1HNfTz3bmyul/exec";
 
 // 1. Dữ liệu 10 cơ sở chi nhánh toàn quốc
 const CAMPUSES = [
@@ -220,16 +220,19 @@ function initFormSubmissions() {
     }
 
     try {
-      const formData = new FormData();
+      const urlParams = new URLSearchParams();
       for (const [key, value] of Object.entries(data)) {
-        formData.append(key, value);
+        urlParams.append(key, value);
       }
 
-      // Gửi POST request dạng no-cors để tương thích hoàn toàn với Google Apps Script Web App
+      // Gửi POST x-www-form-urlencoded dạng no-cors để tương thích 100% với Google Apps Script e.parameter
       await fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: formData
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: urlParams.toString()
       });
       return true;
     } catch (err) {
