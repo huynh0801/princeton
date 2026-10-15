@@ -1,6 +1,6 @@
 /**
  * Princeton Academy Landing Page Interactivity
- * Fully responsive, zero dependencies, accessible.
+ * Sharp architectural style, minimal icons, accessible.
  */
 
 // 1. Dữ liệu 10 cơ sở chi nhánh toàn quốc
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
 });
 
-// Render danh sách 10 cơ sở
+// Render danh sách 10 cơ sở - Phong cách vuông vức, tinh giản
 function renderCampusesList() {
   const container = document.getElementById('campuses-list');
   if (!container) return;
@@ -107,23 +107,19 @@ function renderCampusesList() {
   container.innerHTML = CAMPUSES.map((c, idx) => `
     <div 
       onclick="selectCampus(${idx})" 
-      class="campus-item p-4 rounded-lg cursor-pointer bg-white mb-2 border border-gray-100 ${idx === 0 ? 'active' : ''}"
+      class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer ${idx === 0 ? 'active' : ''}"
       id="campus-btn-${idx}"
     >
       <div class="flex items-start gap-3">
-        <div class="w-8 h-8 rounded-full bg-red-100 text-[#8C1823] flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+        <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
           ${idx + 1}
         </div>
         <div class="flex-1">
           <div class="flex items-center justify-between">
             <h4 class="font-bold text-sm text-[#8C1823]">${c.name}</h4>
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-amber-50 text-[#C89D35] font-semibold border border-amber-200">${c.city}</span>
+            <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">${c.city}</span>
           </div>
-          <p class="text-xs text-gray-600 mt-1 flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
+          <p class="text-xs text-gray-600 mt-1">
             ${c.address}
           </p>
         </div>
@@ -167,12 +163,12 @@ function selectCampus(index) {
   const labelEl = document.getElementById('current-campus-display');
   if (labelEl) {
     labelEl.innerHTML = `
-      <span class="font-bold text-[#8C1823]">${campus.name}</span>
+      <span class="font-bold text-[#8C1823] text-sm">${campus.name}</span>
       <span class="text-xs text-gray-500 block mt-0.5">${campus.address}</span>
     `;
   }
 
-  // Đồng bộ chọn select trong form nếu người dùng đang ở tab phụ huynh
+  // Đồng bộ chọn select trong form
   const selectEl = document.getElementById('parent-campus-select');
   if (selectEl) {
     selectEl.value = campus.name;
