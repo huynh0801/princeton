@@ -9,6 +9,7 @@
    - Accent Gold: #C89D35
    - Warm Cream: #FAF7F2
    - Clean, sharp architectural lines (hạn chế bo góc, hạn chế icon)
+   - Prominent, prestigious academic typography
    ========================================================================== */
 
 :root {
@@ -48,6 +49,70 @@ html {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary-dark);
+}
+
+/* ==========================================================================
+   Section Title & Badge Enhancements (Tiêu đề nổi bật, bề thế)
+   ========================================================================== */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 18px;
+  background-color: #8C1823;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-left: 3px solid #C89D35;
+  box-shadow: 0 2px 8px rgba(140, 24, 35, 0.18);
+}
+
+.section-badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 18px;
+  background-color: #FAF5EB;
+  color: #8C1823;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 1px solid #C89D35;
+  border-left: 4px solid #8C1823;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  color: #8C1823;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.title-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 14px auto 18px auto;
+}
+
+.title-ornament .bar {
+  height: 2px;
+  width: 50px;
+  background-color: #C89D35;
+}
+
+.title-ornament .diamond {
+  width: 8px;
+  height: 8px;
+  background-color: #8C1823;
+  transform: rotate(45deg);
 }
 
 /* Card Subtle Glass & Sharp Architecture */
