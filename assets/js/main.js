@@ -3,6 +3,13 @@
  * Sharp architectural style, minimal icons, accessible.
  */
 
+// =========================================================================
+// CẤU HÌNH GOOGLE SHEETS TÍCH HỢP FORM ĐĂNG KÝ
+// Hướng dẫn: Dán Web App URL của Google Apps Script vào biến dưới đây.
+// Ví dụ: const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/.../exec";
+// =========================================================================
+const GOOGLE_SHEET_URL = "";
+
 // 1. Dữ liệu 10 cơ sở chi nhánh toàn quốc
 const CAMPUSES = [
   {
@@ -200,48 +207,136 @@ function initFormTabs() {
   });
 }
 
-// Xử lý gửi Form & Xác thực
+// Xử lý gửi Form & Tích hợp Google Sheets
 function initFormSubmissions() {
   const formParent = document.getElementById('form-parent');
   const formPartner = document.getElementById('form-partner');
 
+  // Hàm gửi dữ liệu bất đồng bộ lên Google Sheets Web App
+  async function sendToGoogleSheet(data) {
+    if (!GOOGLE_SHEET_URL) {
+      console.info("💡 Lưu ý: GOOGLE_SHEET_URL chưa được điền. Dữ liệu chỉ hiển thị demo trên trình duyệt.");
+      return true;
+    }
+
+    try {
+      const formData = new FormData();
+      for (const [key, value] of Object.entries(data)) {
+        formData.append(key, value);
+      }
+
+      // Gửi POST request dạng no-cors để tương thích hoàn toàn với Google Apps Script Web App
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+      return true;
+    } catch (err) {
+      console.error("Lỗi kết nối tới Google Sheets:", err);
+      return false;
+    }
+  }
+
+  // 1. Xử lý Form Phụ Huynh
   if (formParent) {
-    formParent.addEventListener('submit', (e) => {
+    formParent.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const submitBtn = formParent.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.innerHTML : '';
+
       const name = document.getElementById('parent-name').value.trim();
       const phone = document.getElementById('parent-phone').value.trim();
-      const campus = document.getElementById('parent-campus-select').value;
+      const childAge = document.getElementById('parent-child-age') ? document.getElementById('parent-child-age').value : '';
+      const email = document.getElementById('parent-email') ? document.getElementById('parent-email').value.trim() : '';
+      const campus = document.getElementById('parent-campus-select') ? document.getElementById('parent-campus-select').value : '';
+      const notes = document.getElementById('parent-notes') ? document.getElementById('parent-notes').value.trim() : '';
 
       if (!name || !phone) {
         alert('Vui lòng điền họ tên và số điện thoại liên hệ!');
         return;
       }
 
+      // Trạng thái loading
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'ĐANG GỬI THÔNG TIN...';
+      }
+
+      const payload = {
+        formType: 'Phụ Huynh',
+        name: name,
+        phone: phone,
+        childAge: childAge,
+        email: email,
+        campus: campus,
+        notes: notes,
+        createdAt: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
+      };
+
+      await sendToGoogleSheet(payload);
+
       showSuccessModal(
         'Đăng Ký Tham Quan Thành Công!',
         `Cảm ơn Quý phụ huynh <strong>${name}</strong> đã quan tâm tới Princeton Academy. Ban tuyển sinh ${campus ? `cơ sở <strong>${campus}</strong>` : 'nhà trường'} sẽ liên hệ với Quý phụ huynh qua số điện thoại <strong>${phone}</strong> trong vòng 24 giờ làm việc.`
       );
       formParent.reset();
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
     });
   }
 
+  // 2. Xử lý Form Đối Tác & Nhà Đầu Tư
   if (formPartner) {
-    formPartner.addEventListener('submit', (e) => {
+    formPartner.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const submitBtn = formPartner.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.innerHTML : '';
+
       const name = document.getElementById('partner-name').value.trim();
       const phone = document.getElementById('partner-phone').value.trim();
-      const province = document.getElementById('partner-province').value.trim();
+      const email = document.getElementById('partner-email') ? document.getElementById('partner-email').value.trim() : '';
+      const province = document.getElementById('partner-province') ? document.getElementById('partner-province').value.trim() : '';
+      const model = document.getElementById('partner-model') ? document.getElementById('partner-model').value : '';
+      const notes = document.getElementById('partner-notes') ? document.getElementById('partner-notes').value.trim() : '';
 
       if (!name || !phone) {
         alert('Vui lòng điền họ tên và số điện thoại của Quý đối tác!');
         return;
       }
 
+      // Trạng thái loading
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'ĐANG GỬI THÔNG TIN...';
+      }
+
+      const payload = {
+        formType: 'Đối Tác',
+        name: name,
+        phone: phone,
+        email: email,
+        province: province,
+        model: model,
+        notes: notes,
+        createdAt: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
+      };
+
+      await sendToGoogleSheet(payload);
+
       showSuccessModal(
         'Đăng Ký Hợp Tác Chiến Lược Thành Công!',
         `Cảm ơn Quý đối tác / Nhà đầu tư <strong>${name}</strong>. Đại diện Ban Phát Triển Nhượng Quyền Toàn Quốc của Princeton Academy sẽ liên hệ trực tiếp qua số <strong>${phone}</strong> để gửi hồ sơ chuyển giao và tư vấn kế hoạch phát triển tại <strong>${province || 'khu vực của bạn'}</strong>.`
       );
       formPartner.reset();
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
     });
   }
 }
