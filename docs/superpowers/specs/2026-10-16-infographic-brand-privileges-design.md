@@ -1,28 +1,49 @@
-# 05 Đặc Quyền Chuyển Giao Toàn Diện - Infographic Brand Cards Design
+# 05 Đặc Quyền Chuyển Giao Toàn Diện - Bento Grid Infographic Design
 
 ## Mục Tiêu
-Nâng cấp khu vực 05 thẻ đặc quyền chuyển giao (dòng 852 - 940 trong `index.html`) từ dạng text-only thành hệ thống thẻ Infographic cao cấp kết hợp hình ảnh thực tế thương hiệu (`brand1.webp` đến `brand5.jpg`).
+Nâng cấp khu vực 05 đặc quyền nhượng quyền sang bố cục **Bento Grid Hiện Đại (12 cột)** kết hợp hình ảnh thực tế thương hiệu (`brand1.webp` đến `brand5.jpg`) và các thẻ chỉ số infographic, loại bỏ cảm giác bị ép hẹp của bố cục 5 cột dọc truyền thống.
 
-## Bố Cục & Thành Phần
+## Cấu Trúc Bento Grid (Hệ thống 12 cột)
 
-### 1. Infographic Pipeline (Thanh tiến trình 5 bước khép kín)
-Thanh kết nối quy trình chuyển giao toàn diện:
-- Bước 01: Nhận diện Thương hiệu
-- Bước 02: Chuyển giao Giáo trình
-- Bước 03: Đào tạo Nhân sự
-- Bước 04: Vận hành & Tuyển sinh
-- Bước 05: Giám sát Chất lượng
+### Hàng Trên (Top Row - 12 Cột)
+- **Thẻ 01 (Hero Card - Chiếm 7 cột `lg:col-span-7`)**:
+  - Bố cục Split Horizontal: Nửa trái ảnh lớn `brand1.webp` (tỉ lệ rộng rãi, zoom mượt mà), nửa phải là nội dung.
+  - Số `01` dập nổi font serif sang trọng.
+  - Tiêu đề: `Brand & Identity`.
+  - Mô tả: Di sản thương hiệu uy tín từ năm 2018 & sự bảo trợ chuyên môn bền vững từ Hội đồng Chuyên gia giáo dục.
+  - Infographic KPI Pills: `Di Sản Từ 2018` | `Bảo Trợ 100% Chuyên Môn`.
+  - Tag: `BẢO TRỢ DANH TIẾNG`.
+  - Viền nóc: Đỏ Bordeaux `#8C1823`.
 
-### 2. Chi Tiết 5 Thẻ Infographic
-- **Grid Layout**: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5`
-- **Khung thẻ**: Nền trắng, viền mảnh `#E8E2D5`, đổ bóng `shadow-sm hover:shadow-xl transition-all duration-300`, đường viền nóc xen kẽ Đỏ `#8C1823` & Vàng đồng `#C89D35`.
-- **Khu vực ảnh (`h-44`)**:
-  - Tỉ lệ khung hình đồng nhất, hiệu ứng zoom `group-hover:scale-105 duration-500`.
-  - Badge số thứ tự dập nổi góc trên bên trái (`01` đến `05`).
-  - Dải gradient đổ bóng tối nhẹ phía chân ảnh giúp tăng tương phản.
-- **Nội dung thẻ**:
-  - `Đặc Quyền 01 - Brand & Identity`: Ảnh `assets/img/brand1.webp`, Tag `BẢO TRỢ DANH TIẾNG`
-  - `Đặc Quyền 02 - Curriculum & PEAK`: Ảnh `assets/img/brand2.webp`, Tag `GIÁO TRÌNH BẢN QUYỀN`
-  - `Đặc Quyền 03 - Teacher Academy`: Ảnh `assets/img/brand3.jpg`, Tag `CHUẨN HÓA NHÂN SỰ`
-  - `Đặc Quyền 04 - 360° Ops & Marketing`: Ảnh `assets/img/brand4.jpg`, Tag `TỐI ƯU VẬN HÀNH`
-  - `Đặc Quyền 05 - Quality Assurance`: Ảnh `assets/img/brand5.jpg`, Tag `TIÊU CHUẨN VÀNG LÂU DÀI`
+- **Thẻ 02 (Chiếm 5 cột `lg:col-span-5`)**:
+  - Ảnh `brand2.webp` ở phần trên (`h-48`).
+  - Tiêu đề: `Curriculum & PEAK`.
+  - Mô tả: Quyền triển khai trọn bộ 9 môn ECT 100% Anh - Mỹ cùng Khung phương pháp PEAK Learning Framework™ độc quyền.
+  - Infographic KPI Pills: `9 Môn Chuẩn ECT` | `PEAK Framework™`.
+  - Tag: `GIÁO TRÌNH BẢN QUYỀN`.
+  - Viền nóc: Vàng Đồng `#C89D35`.
+
+### Hàng Dưới (Bottom Row - 3 Thẻ Đều Nhau, Mỗi Thẻ 4 Cột `lg:col-span-4`)
+- **Thẻ 03 (4 cột)**:
+  - Ảnh `brand3.jpg` (`h-44`), hiệu ứng zoom.
+  - Tiêu đề: `Teacher Academy`.
+  - Mô tả: Đào tạo bài bản, sát hạch và chứng chỉ cho đội ngũ "Người Ươm Mầm" đạt chuẩn chuyên môn & tư duy giáo dục hiện đại.
+  - Infographic KPI Pill: `Chứng Chỉ Sát Hạch`.
+  - Tag: `CHUẨN HÓA NHÂN SỰ`.
+  - Viền nóc: Đỏ Bordeaux `#8C1823`.
+
+- **Thẻ 04 (4 cột)**:
+  - Ảnh `brand4.jpg` (`h-44`), hiệu ứng zoom.
+  - Tiêu đề: `360° Ops & Marketing`.
+  - Mô tả: Tư vấn quy hoạch thiết kế trường mầm non quốc tế, chuyển giao quy trình vận hành & chiến lược tuyển sinh thực chiến.
+  - Infographic KPI Pill: `Chuyển Giao 360°`.
+  - Tag: `TỐI ƯU VẬN HÀNH`.
+  - Viền nóc: Vàng Đồng `#C89D35`.
+
+- **Thẻ 05 (4 cột)**:
+  - Ảnh `brand5.jpg` (`h-44`), hiệu ứng zoom.
+  - Tiêu đề: `Quality Assurance`.
+  - Mô tả: Kiểm soát chất lượng liên tục, dự giờ chuyên môn định kỳ hàng quý & cập nhật cải tiến chương trình lâu dài.
+  - Infographic KPI Pill: `Định Kỳ Hàng Quý`.
+  - Tag: `TIÊU CHUẨN VÀNG LÂU DÀI`.
+  - Viền nóc: Đỏ Bordeaux `#8C1823`.
