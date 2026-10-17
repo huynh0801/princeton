@@ -8,7 +8,7 @@
 // Hướng dẫn: Dán Web App URL của Google Apps Script vào biến dưới đây.
 // Ví dụ: const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/.../exec";
 // =========================================================================
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxHnqITRELmcUuhShN5Rtse3TH-cidi8FurSkdqLFJyMgVWxsqFZaIT1HNfTz3bmyul/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx8Lbh6mDVfMqUP0HqhCgW504f497bfTF_eGW8AQ6hwrEp_x3MO3Cwb2_Cv6ynnvqqTUQ/exec";
 
 // 1. Dữ liệu 10 cơ sở chi nhánh toàn quốc
 const CAMPUSES = [
