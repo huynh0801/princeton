@@ -35,7 +35,7 @@ Landing page được thiết kế theo hướng tiếp cận **Dual-Journey Uni
 ## 3. Cấu Trúc Các Khối Giao Diện Chi Tiết
 
 ### Khối Header & Topbar
-- **Topbar:** Hotline `0968.822.291`, Email `dung@princetonacademy.vn`, Slogan *"Growing Hearts • Growing Minds • Growing Strong • Growing Together"*.
+- **Topbar:** Hotline `0988.284.799`, Email `princetonvietnam@gmail.com`, Slogan *"Growing Hearts • Growing Minds • Growing Strong • Growing Together"*.
 - **Header:**
   - Logo Princeton Academy.
   - Menu: *Về chúng tôi, Triết lý 3 Trụ cột, CT PEAK & ECT, Đối tác chiến lược, 10 Cơ sở, Đăng ký*.
@@ -96,8 +96,8 @@ Landing page được thiết kế theo hướng tiếp cận **Dual-Journey Uni
 - Slogan: **PRINCETON ACADEMY – THE PRINCETON WAY**
 - *Growing Hearts • Growing Minds • Growing Strong • Growing Together*
 - Thông tin liên hệ:
-  - Hotline: `0968.822.291`
-  - Email: `dung@princetonacademy.vn`
+  - Hotline: `0988.284.799`
+  - Email: `princetonvietnam@gmail.com`
   - Website: `https://princetonacademy.vn/`
 - Danh sách liên kết nhanh và địa chỉ trụ sở chính / các phân hiệu.
 - Floating Action Buttons: Gọi Hotline ngay, Chat Zalo/Messenger, Cuộn lên đầu trang.

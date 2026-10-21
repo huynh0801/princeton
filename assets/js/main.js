@@ -17,7 +17,7 @@ const CAMPUSES = [
     name: "Princeton Academy Ecopark Hải Phòng",
     address: "Số 6, Triệu Việt Vương, KĐT Ecopark, phường Tân Hưng, TP Hải Phòng",
     city: "Hải Phòng",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "Số 6 Triệu Việt Vương, KĐT Ecopark, Tân Hưng, Hải Phòng"
   },
   {
@@ -25,7 +25,7 @@ const CAMPUSES = [
     name: "Princeton Academy Kẻ Sặt Hải Phòng",
     address: "Số 76, Lạc Long Quân, Kẻ Sặt, Bình Giang, TP Hải Phòng",
     city: "Hải Phòng",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "76 Lạc Long Quân, Kẻ Sặt, Bình Giang, Hải Dương"
   },
   {
@@ -33,7 +33,7 @@ const CAMPUSES = [
     name: "Princeton Academy Lai Vu Hải Phòng",
     address: "Kiot 19-20, Lai Vu, Lai Khê, Hải Phòng",
     city: "Hải Phòng",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "Lai Vu, Kim Thành, Hải Dương"
   },
   {
@@ -41,7 +41,7 @@ const CAMPUSES = [
     name: "Princeton Academy Bắc Sơn Đà Nẵng",
     address: "88 Bắc Sơn, An Khê, Thanh Khê, TP. Đà Nẵng",
     city: "Đà Nẵng",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "88 Bắc Sơn, An Khê, Thanh Khê, Đà Nẵng"
   },
   {
@@ -49,7 +49,7 @@ const CAMPUSES = [
     name: "Princeton Academy Tây Nam Linh Đàm Hà Nội",
     address: "BT5-TT4A, KĐT Tây Nam Linh Đàm, Hoàng Mai, Hà Nội",
     city: "Hà Nội",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "BT5-TT4A KĐT Tây Nam Linh Đàm, Hoàng Mai, Hà Nội"
   },
   {
@@ -57,7 +57,7 @@ const CAMPUSES = [
     name: "Princeton Academy Lạc Hồng Phúc Hưng Yên",
     address: "Đường Nguyễn Bình (khu đô thị Lạc Hồng Phúc), Mỹ Hào, Hưng Yên",
     city: "Hưng Yên",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "Khu đô thị Lạc Hồng Phúc, Phường Nhân Hòa, Mỹ Hào, Hưng Yên"
   },
   {
@@ -65,7 +65,7 @@ const CAMPUSES = [
     name: "Princeton Academy Nam Viên Campus (Phú Mỹ Hưng)",
     address: "Nam Viên Campus: 33 Đường 16, Khu phố Nam Viên, Phường Tân Mỹ, TP.HCM",
     city: "TP. Hồ Chí Minh",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "33 Đường 16, Khu phố Nam Viên, Tân Phong, Quận 7, TP Hồ Chí Minh"
   },
   {
@@ -73,7 +73,7 @@ const CAMPUSES = [
     name: "Princeton Academy Mỹ Gia Campus (Phú Mỹ Hưng)",
     address: "Mỹ Gia Campus: 10 Đường 18, Khu phố Mỹ Gia, Phường Tân Mỹ, TP.HCM",
     city: "TP. Hồ Chí Minh",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "10 Đường 18, Khu phố Mỹ Gia, Tân Phong, Quận 7, TP Hồ Chí Minh"
   },
   {
@@ -81,7 +81,7 @@ const CAMPUSES = [
     name: "Princeton Academy Lê Quý Đôn Đà Nẵng",
     address: "Số 45–47 Lê Quý Đôn, phường Hòa Cường, quận Hải Châu, TP. Đà Nẵng",
     city: "Đà Nẵng",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "45 Lê Quý Đôn, Bình Thuận, Hải Châu, Đà Nẵng"
   },
   {
@@ -89,7 +89,7 @@ const CAMPUSES = [
     name: "Princeton Academy Hòa Xuân Đà Nẵng",
     address: "01 Nguyễn Ân, Hòa Xuân, Cẩm Lệ, TP. Đà Nẵng",
     city: "Đà Nẵng",
-    phone: "0968.822.291",
+    phone: "0988.284.799",
     mapQuery: "01 Nguyễn Ân, Hòa Xuân, Cẩm Lệ, Đà Nẵng"
   }
 ];

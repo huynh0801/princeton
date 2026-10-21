@@ -57,7 +57,7 @@ git commit -m "feat(assets): optimize real project images for web performance"
 Thiết lập thẻ meta, font `Be Vietnam Pro` & `Merriweather`, cấu hình Tailwind màu thương hiệu Princeton.
 
 - [ ] **Step 2: Triển khai Header & Sticky Topbar**
-Logo Princeton ngang, thanh menu điều hướng 6 mục, hotline `0968.822.291`, nút chuyển nhanh Đăng ký, menu mobile toggle.
+Logo Princeton ngang, thanh menu điều hướng 6 mục, hotline `0988.284.799`, nút chuyển nhanh Đăng ký, menu mobile toggle.
 
 - [ ] **Step 3: Triển khai Hero Section & Khối 1 (Về chúng tôi & 03 Trụ Cột)**
 Tiêu đề *"MỘT TUỔI THƠ VỮNG CHÃI CHO CẢ CUỘC ĐỜI"*, quote cảm xúc, 2 ảnh nghệ thuật lồng ghép (`student.jpg`, `teaching1.jpg`), 03 Trụ cột *Healthy Body, Bright Mind, Happy Heart* dạng infographic, thanh huy hiệu thống kê (6+ Năm, 10 Cơ sở, 1000+ Học sinh).
@@ -172,7 +172,7 @@ git commit -m "feat: implement 10 campuses interactive map switcher and 2-tab re
 - Produces: Hoàn thiện Footer, Hotline Floating Pill, Zalo/Messenger quick chat, Scroll-to-top, kiểm tra trên các kích thước màn hình.
 
 - [ ] **Step 1: Triển khai Footer chuẩn thương hiệu Princeton**
-Nền bordeaux sâu `#46080F`, logo trắng kim, slogan *The Princeton Way*, hotline `0968.822.291`, email `dung@princetonacademy.vn`, website `https://princetonacademy.vn/`.
+Nền bordeaux sâu `#46080F`, logo trắng kim, slogan *The Princeton Way*, hotline `0988.284.799`, email `princetonvietnam@gmail.com`, website `https://princetonacademy.vn/`.
 
 - [ ] **Step 2: Triển khai Floating Contact Widgets**
 Nút gọi nhanh hotline góc màn hình, nút chat tư vấn Zalo, nút Back-to-top mượt mà.
