@@ -87,8 +87,8 @@
 
         <!-- Desktop Navigation Links - TẤT CẢ TRÊN 1 DÒNG (WHITESPACE-NOWRAP) -->
         <nav class="hidden lg:flex items-center gap-5 xl:gap-8 text-[12px] xl:text-[13px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">
-          <a href="#pillars" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">03 Trụ Cột</a>
           <a href="#curriculum" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">CT PEAK & ECT</a>
+          <a href="#pillars" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">03 Trụ Cột</a>
           <a href="#testimonials" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">Đối Tác Đánh Giá</a>
           <a href="#franchise" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">Đặc Quyền Hợp Tác</a>
           <a href="#campuses" class="nav-item whitespace-nowrap py-2 border-b-2 border-transparent transition-colors">10 Cơ Sở</a>
@@ -114,8 +114,8 @@
 
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-gray-200 px-6 py-4 space-y-3">
-      <a href="#pillars" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">03 Trụ Cột Giáo Dục</a>
       <a href="#curriculum" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">Chương Trình PEAK & ECT</a>
+      <a href="#pillars" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">03 Trụ Cột Triết Lý</a>
       <a href="#testimonials" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">Đối Tác Nói Gì</a>
       <a href="#franchise" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">05 Đặc Quyền Nhượng Quyền</a>
       <a href="#campuses" class="mobile-nav-link block font-semibold text-gray-800 hover:text-[#8C1823] py-2 border-b border-gray-100 uppercase text-xs">Hệ Thống 10 Cơ Sở</a>
@@ -133,10 +133,10 @@
   <!-- ================= HERO SECTION ================= -->
   <section class="relative bg-gradient-to-b from-[#FFFDF9] via-[#FAF6F0] to-[#F5ECE1] pt-12 pb-20 border-b border-[#E8E2D5]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
-        <!-- Left Hero Copy -->
-        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <!-- Left Hero Copy (order-2 on mobile, order-1 on desktop) -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1">
           
           <div class="inline-block px-3 py-1 bg-red-50 border border-red-200 text-[#8C1823] text-xs font-bold uppercase tracking-widest">
             HỆ THỐNG MẦM NON SONG NGỮ CHUẨN QUỐC TẾ TỪ 2018
@@ -185,33 +185,24 @@
 
         </div>
 
-        <!-- Right Hero Visual Collage - Giới thiệu cơ sở vật chất với campus1 và campus2 -->
-        <div class="lg:col-span-5 relative">
-          <div class="relative mx-auto max-w-md lg:max-w-none">
+        <!-- Right Hero Visual Collage - Giới thiệu cơ sở vật chất với campus1 và campus2 (order-1 on mobile) -->
+        <div class="lg:col-span-5 relative order-1 lg:order-2">
+          <div class="relative mx-auto max-w-md lg:max-w-none pt-4 sm:pt-0">
             
             <!-- Main Hero Image: campus1.jpg (Cận cảnh kiến trúc nhận diện và thương hiệu 3D đẳng cấp) -->
             <div class="relative border-2 border-white shadow-xl img-zoom-container bg-white">
-              <img src="assets/img/campus1.jpg" alt="Kiến trúc thương hiệu Princeton Academy" class="w-full h-[380px] sm:h-[420px] object-cover">
-              <!-- Gradient và chữ chỉ hiển thị trên mobile, ẩn hoàn toàn trên desktop (lg:hidden) -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden"></div>
-              <div class="absolute bottom-4 left-4 right-4 text-white lg:hidden">
-                <span class="inline-block px-2 py-0.5 bg-[#8C1823] text-[10px] font-bold uppercase tracking-wider mb-1">
-                  HỆ THỐNG CƠ SỞ CHUẨN QUỐC TẾ
-                </span>
-                <h3 class="font-bold text-base">Không Gian Học Tập Hiện Đại & Đẳng Cấp</h3>
-                <p class="text-xs text-gray-200 mt-0.5">Quy hoạch đồng bộ, sân chơi đa giác quan & phòng chức năng tiêu chuẩn quốc tế</p>
-              </div>
+              <img src="assets/img/campus1.jpg" alt="Kiến trúc thương hiệu Princeton Academy" class="w-full h-[320px] sm:h-[420px] object-cover">
             </div>
 
-            <!-- Overlapping Secondary Thumbnail: campus2.jpg (Gọn gàng, tinh tế, không chiếm diện tích) -->
-            <div class="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 w-28 sm:w-36 border-2 border-white shadow-xl img-zoom-container bg-white hidden sm:block">
-              <img src="assets/img/campus2.jpg" alt="Toàn cảnh cơ sở Princeton Academy" class="w-full h-20 sm:h-24 object-cover">
+            <!-- Overlapping Secondary Thumbnail: campus2.jpg (Gọn gàng, tinh tế) -->
+            <div class="absolute -bottom-3 left-2 sm:-bottom-5 sm:-left-5 w-24 sm:w-36 border-2 border-white shadow-xl img-zoom-container bg-white">
+              <img src="assets/img/campus2.jpg" alt="Toàn cảnh cơ sở Princeton Academy" class="w-full h-16 sm:h-24 object-cover">
             </div>
 
             <!-- Badge: 10 Cơ sở toàn quốc -->
-            <div class="absolute -top-3 -right-3 bg-[#8C1823] text-white px-4 py-2 shadow-lg border border-amber-300/40 text-center">
-              <div class="text-xs font-bold uppercase tracking-wider">10 CƠ SỞ TOÀN QUỐC</div>
-              <div class="text-[10px] text-amber-200">Hải Phòng • Hà Nội • Đà Nẵng • TP.HCM • Hưng Yên</div>
+            <div class="absolute -top-3 right-0 sm:-right-3 bg-[#8C1823] text-white px-3 sm:px-4 py-1.5 sm:py-2 shadow-lg border border-amber-300/40 text-center">
+              <div class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">10 CƠ SỞ TOÀN QUỐC</div>
+              <div class="text-[9px] sm:text-[10px] text-amber-200">Hải Phòng • Hà Nội • Đà Nẵng • TP.HCM • Hưng Yên</div>
             </div>
 
           </div>
@@ -221,20 +212,429 @@
     </div>
   </section>
 
-  <!-- ================= SECTION 1: TỔNG QUÁT THƯƠNG HIỆU & 03 TRỤ CỘT ================= -->
-  <section id="pillars" class="py-20 bg-white relative border-b border-[#E8E2D5]">
+  <!-- ================= SECTION 1: KHUNG PHƯƠNG PHÁP PEAK & CHƯƠNG TRÌNH TƯ DUY ECT ================= -->
+  <section id="curriculum" class="py-20 bg-white relative border-b border-[#E8E2D5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header: Nhấn mạnh đào tạo "TƯ DUY" -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-100/60 px-3.5 py-1.5 border border-red-200">
+          TIÊN PHONG ĐÀO TẠO NĂNG LỰC "TƯ DUY"
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
+          KHUNG PHƯƠNG PHÁP PEAK &amp; CHƯƠNG TRÌNH TƯ DUY PHẢN BIỆN ECT
+        </h2>
+        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
+        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+          Không đào tạo theo lối truyền thụ thụ động hay ghi nhớ máy móc, Princeton Academy tập trung đánh thức và rèn luyện năng lực <strong>"TƯ DUY"</strong> độc lập cho trẻ ngay từ những năm đầu đời thông qua khung phương pháp bản quyền PEAK™ và chương trình tư duy phản biện ECT chuẩn Hoa Kỳ.
+        </p>
+      </div>
+
+      <!-- Callout Banner: Triết lý cốt lõi đào tạo "TƯ DUY" -->
+      <div class="mb-16 p-6 sm:p-7 bg-[#FCFAF7] border border-[#E8E2D5] border-l-4 border-l-[#8C1823] border-r-4 border-r-[#C89D35] shadow-sm">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+          <div class="space-y-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-[11px] font-extrabold text-[#8C1823] uppercase tracking-widest bg-red-50 px-2.5 py-0.5 border border-red-200">
+                TRỌNG TÂM CỐT LÕI
+              </span>
+              <span class="text-xs font-bold text-[#C89D35] uppercase tracking-wider">
+                ĐÀO TẠO "TƯ DUY" TỪ 18 THÁNG TUỔI
+              </span>
+            </div>
+            <h3 class="text-base sm:text-xl font-extrabold text-[#8C1823] uppercase tracking-wide">
+              DẠY TRẺ "CÁCH TƯ DUY" THAY VÌ CHỈ DẠY "CÁI ĐỂ GHI NHỚ"
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-700 max-w-3xl leading-relaxed">
+              Trẻ không chỉ học <em>"Cái gì" (What)</em> mà được trang bị công cụ để tự đặt câu hỏi <em>"Vì sao" (Why)</em> &amp; <em>"Như thế nào" (How)</em> – hình thành thói quen tư duy phản biện sắc bén, biết lập luận độc lập và tự tin giải quyết vấn đề suốt cuộc đời.
+            </p>
+          </div>
+          <div class="shrink-0">
+            <a href="#register" class="inline-block px-5 py-3 bg-[#8C1823] hover:bg-[#70111A] text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-colors">
+              Đăng Ký Đánh Giá Năng Lực Tư Duy →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. KHUNG PHƯƠNG PHÁP GIÁO DỤC PEAK LEARNING FRAMEWORK™ (ĐƯỢC ĐẨY LÊN ĐẦU, BỐ CỤC CHUẨN ẢNH MẪU) -->
+      <div class="mb-20">
+        <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-3 mb-10 border-b border-gray-300 pb-3">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold text-[#C89D35] uppercase tracking-wider">Bản Quyền Princeton Academy</span>
+              <span class="text-gray-400 hidden sm:inline">•</span>
+              <span class="text-[11px] font-bold text-[#8C1823] uppercase tracking-wider">Học Thuật Quốc Tế</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[#8C1823] uppercase">
+              1. Khung Phương Pháp Giáo Dục PEAK Learning Framework™
+            </h3>
+            <p class="text-xs text-gray-600 mt-0.5">Hệ phương pháp sư phạm chuyển hóa việc rèn luyện tư duy thành trải nghiệm sống động mỗi ngày</p>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#8C1823] px-3.5 py-1.5 bg-white border border-[#8C1823]/40 whitespace-nowrap shadow-sm">
+            BẢN QUYỀN ĐỘC QUYỀN
+          </span>
+        </div>
+
+        <!-- 04 Phương Pháp PEAK - Bố Cục Ngang Xen Kẽ Kết Hợp Hình Ảnh Thực Tế (Alternating Rows chuẩn ảnh mẫu) -->
+        <div class="space-y-12 md:space-y-16">
+          
+          <!-- Row 1: P - Purposeful Play (Ảnh Trái - Nội Dung Phải) -->
+          <div class="bg-white border border-[#E8E2D5] border-t-4 border-t-[#8C1823] shadow-sm grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[380px] img-zoom-container border-b lg:border-b-0 lg:border-r border-gray-200">
+              <img src="assets/img/p.jpg" alt="P - Purposeful Play - Chơi có chủ đích tại Princeton Academy" class="w-full h-full object-cover">
+              <span class="absolute top-4 left-4 bg-[#8C1823] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1">
+                PHƯƠNG PHÁP P
+              </span>
+            </div>
+            <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
+              <div>
+                <div class="flex items-baseline justify-between border-b border-gray-100 pb-3 mb-4">
+                  <span class="text-4xl sm:text-5xl font-extrabold font-serif text-[#8C1823]">P</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500">CHƠI CÓ CHỦ ĐÍCH</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-[#8C1823] uppercase tracking-wide mb-3">
+                  PURPOSEFUL PLAY
+                </h3>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+                  Chơi là ngôn ngữ tự nhiên của sự học, mang mục tiêu giáo dục rõ ràng. Trẻ khám phá hào hứng và tiếp nhận kiến thức một cách tự nhiên, không áp lực hay gượng ép.
+                </p>
+                <div class="space-y-2 text-xs sm:text-sm text-gray-600 border-l-2 border-[#8C1823] pl-4">
+                  <p>• <strong>Khám phá tự nhiên:</strong> Học sinh hào hứng tiếp thu kiến thức và kỹ năng sống thông qua trò chơi tương tác có định hướng.</p>
+                  <p>• <strong>Mục tiêu giáo dục rõ ràng:</strong> Mỗi trò chơi được chuyên gia thiết kế tỉ mỉ nhằm kích hoạt tư duy và khả năng quan sát độc lập.</p>
+                </div>
+              </div>
+              <div class="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
+                <span>— KHÁM PHÁ TỰ NHIÊN &amp; KÍCH HOẠT TƯ DUY</span>
+                <span class="text-[#8C1823]">TRỌNG TÂM: TƯ DUY KHÁM PHÁ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: E - Experiential Learning (Nội Dung Trái - Ảnh Phải) -->
+          <div class="bg-white border border-[#E8E2D5] border-t-4 border-t-[#C89D35] shadow-sm grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between order-2 lg:order-1">
+              <div>
+                <div class="flex items-baseline justify-between border-b border-gray-200 pb-3 mb-4">
+                  <span class="text-4xl sm:text-5xl font-extrabold font-serif text-[#C89D35]">E</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-700">HỌC QUA TRẢI NGHIỆM</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-[#8C1823] uppercase tracking-wide mb-3">
+                  EXPERIENTIAL LEARNING
+                </h3>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+                  Trẻ học sâu nhất từ những điều mình thực sự được "sống", tự tay chạm, quan sát và thao tác thực tế thay vì chỉ nghe giảng lý thuyết thụ động.
+                </p>
+                <div class="space-y-2 text-xs sm:text-sm text-gray-600 border-l-2 border-[#C89D35] pl-4">
+                  <p>• <strong>Trực quan &amp; Thao tác:</strong> Trực tiếp thao tác với giáo cụ trực quan sinh động, thí nghiệm khoa học và vật liệu thiên nhiên phong phú.</p>
+                  <p>• <strong>Chuyển hóa tri thức:</strong> Đúc kết bài học từ trải nghiệm thực tiễn, biến kiến thức trừu tượng thành kỹ năng phản xạ sống động.</p>
+                </div>
+              </div>
+              <div class="mt-8 pt-4 border-t border-gray-200 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
+                <span>— TRỰC QUAN SINH ĐỘNG &amp; THAO TÁC THỰC TẾ</span>
+                <span class="text-[#C89D35]">TRỌNG TÂM: TRỰC QUAN &amp; THAO TÁC</span>
+              </div>
+            </div>
+            <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[380px] img-zoom-container order-1 lg:order-2 border-b lg:border-b-0 lg:border-l border-gray-200">
+              <img src="assets/img/e.jpg" alt="E - Experiential Learning - Học qua trải nghiệm tại Princeton Academy" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-[#C89D35] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1">
+                PHƯƠNG PHÁP E
+              </span>
+            </div>
+          </div>
+
+          <!-- Row 3: A - Active Thinking (Ảnh Trái - Nội Dung Phải) -->
+          <div class="bg-white border border-[#E8E2D5] border-t-4 border-t-[#8C1823] shadow-sm grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[380px] img-zoom-container border-b lg:border-b-0 lg:border-r border-gray-200">
+              <img src="assets/img/a.jpg" alt="A - Active Thinking - Tư duy chủ động tại Princeton Academy" class="w-full h-full object-cover">
+              <span class="absolute top-4 left-4 bg-[#8C1823] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1">
+                PHƯƠNG PHÁP A
+              </span>
+            </div>
+            <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between">
+              <div>
+                <div class="flex items-baseline justify-between border-b border-gray-100 pb-3 mb-4">
+                  <span class="text-4xl sm:text-5xl font-extrabold font-serif text-[#8C1823]">A</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500">TƯ DUY CHỦ ĐỘNG</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-[#8C1823] uppercase tracking-wide mb-3">
+                  ACTIVE THINKING
+                </h3>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+                  Áp dụng mô hình <strong>WAT (Wonder – Ask – Think)</strong> &amp; phương pháp gợi mở Socratic để kích hoạt trẻ tự kiến tạo ý nghĩa, rèn luyện tư duy phản biện và tự tin bảo vệ quan điểm cá nhân.
+                </p>
+                <div class="space-y-2 text-xs sm:text-sm text-gray-600 border-l-2 border-[#8C1823] pl-4">
+                  <p>• <strong>Mô hình WAT (Wonder – Ask – Think):</strong> Dạy trẻ biết ngạc nhiên trước thế giới, chủ động đặt câu hỏi và tự tư duy tìm lời giải đáp.</p>
+                  <p>• <strong>Phương pháp hỏi ngược Socratic:</strong> Giáo viên đóng vai trò gợi mở, hướng dẫn trẻ tự suy luận logic và tranh biện đa chiều.</p>
+                </div>
+              </div>
+              <div class="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
+                <span>— MÔ HÌNH WAT &amp; TƯ DUY PHẢN BIỆN SOCRATIC</span>
+                <span class="text-[#8C1823]">TRỌNG TÂM: WAT &amp; SOCRATIC</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 4: K - Kinesthetic Learning (Nội Dung Trái - Ảnh Phải) -->
+          <div class="bg-white border border-[#E8E2D5] border-t-4 border-t-[#C89D35] shadow-sm grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between order-2 lg:order-1">
+              <div>
+                <div class="flex items-baseline justify-between border-b border-gray-200 pb-3 mb-4">
+                  <span class="text-4xl sm:text-5xl font-extrabold font-serif text-[#C89D35]">K</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-700">HỌC QUA VẬN ĐỘNG</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-[#8C1823] uppercase tracking-wide mb-3">
+                  KINESTHETIC LEARNING
+                </h3>
+                <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+                  Giải phóng năng lượng cơ thể qua hoạt động thể chất có định hướng để kích thích liên kết nơ-ron thần kinh và tối ưu hóa năng lực tư duy toàn diện của não bộ.
+                </p>
+                <div class="space-y-2 text-xs sm:text-sm text-gray-600 border-l-2 border-[#C89D35] pl-4">
+                  <p>• <strong>Kích hoạt nơ-ron não bộ:</strong> Vận động thể chất đa giác quan giúp nơ-ron kết nối mạnh mẽ, tăng cường sự tập trung và tiếp thu nhanh.</p>
+                  <p>• <strong>Thể chất &amp; Trí tuệ song hành:</strong> Thể chất dẻo dai giúp nuôi dưỡng tinh thần minh mẫn, tạo tiền đề vững vàng cho mọi sự học.</p>
+                </div>
+              </div>
+              <div class="mt-8 pt-4 border-t border-gray-200 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
+                <span>— GIẢI PHÓNG THỂ CHẤT &amp; KÍCH HOẠT NÃO BỘ</span>
+                <span class="text-[#C89D35]">TRỌNG TÂM: THỂ CHẤT &amp; NÃO BỘ</span>
+              </div>
+            </div>
+            <div class="lg:col-span-6 relative min-h-[300px] lg:min-h-[380px] img-zoom-container order-1 lg:order-2 border-b lg:border-b-0 lg:border-l border-gray-200">
+              <img src="assets/img/k.jpg" alt="K - Kinesthetic Learning - Học qua vận động tại Princeton Academy" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-[#C89D35] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1">
+                PHƯƠNG PHÁP K
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2. CHƯƠNG TRÌNH TƯ DUY PHẢN BIỆN SỚM ECT (05 MÔN CỐT LÕI) -->
+      <div>
+        <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-3 mb-8 border-b border-gray-300 pb-3">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold text-[#8C1823] uppercase tracking-wider">Môi trường nhúng 100% Tiếng Anh Chuẩn Anh - Mỹ</span>
+              <span class="text-gray-400 hidden sm:inline">•</span>
+              <span class="text-[11px] font-bold text-[#C89D35] uppercase tracking-wider">Rèn Luyện Tư Duy Tự Động</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[#8C1823] uppercase">
+              2. Chương Trình Tư Duy Phản Biện Sớm ECT (Early Critical Thinker)
+            </h3>
+            <p class="text-xs text-gray-600 mt-0.5">Tiếp cận 05 môn học cốt lõi bằng tiếng Anh thông qua trải nghiệm trực quan &amp; rèn luyện tư duy phản biện</p>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#8C1823] px-3 py-1 bg-white border border-[#8C1823]/30 whitespace-nowrap">
+            100% English Immersion
+          </span>
+        </div>
+
+        <!-- 5 Core Subjects - Step-by-Step Numbered Layout with Classroom Showcase -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          <!-- Left: 5 Numbered Subject Bars with Continuous Timeline Line (Evenly Distributed & Dead-Center Aligned) -->
+          <div class="relative lg:col-span-7 space-y-4">
+            
+            <!-- Continuous vertical timeline line passing dead-center through all circle badges (Extends top to bottom) -->
+            <div class="absolute left-6 sm:left-7 top-0 bottom-0 w-1 bg-[#8C1823] -translate-x-1/2 z-0"></div>
+            
+            <!-- Subject 01: ELA -->
+            <div class="relative flex items-center group z-10">
+              <!-- Number Badge -->
+              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
+                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
+                01
+              </div>
+              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
+              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
+                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
+                    English Language Arts (ELA)
+                  </h4>
+                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
+                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
+                    Tư Duy Ngôn Ngữ
+                  </span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed my-1">
+                  Thẩm thấu Tiếng Anh tự nhiên qua âm nhạc, câu chuyện kinh điển; rèn luyện tư duy ngôn ngữ, khả năng lập luận và phản xạ giao tiếp tự tin mỗi ngày.
+                </p>
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
+                  <span class="font-bold text-[#8C1823]">Tư duy biểu đạt &amp; Phản xạ tự nhiên</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject 02: Math -->
+            <div class="relative flex items-center group z-10">
+              <!-- Number Badge -->
+              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
+                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
+                02
+              </div>
+              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
+              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
+                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
+                    Math (Toán Tư Duy Common Core)
+                  </h4>
+                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
+                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
+                    Toán Tư Duy Logic
+                  </span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed my-1">
+                  Hiểu bản chất "lượng" và quy luật không gian qua giáo cụ trực quan sinh động trước khi ghi nhớ mặt số; rèn luyện tư duy phân tích và giải quyết vấn đề từ gốc.
+                </p>
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
+                  <span class="font-bold text-[#8C1823]">Chuẩn Common Core Hoa Kỳ</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject 03: Science / STEM -->
+            <div class="relative flex items-center group z-10">
+              <!-- Number Badge -->
+              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
+                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
+                03
+              </div>
+              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
+              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
+                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
+                    Science / STEM
+                  </h4>
+                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
+                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
+                    Khoa Học Thực Nghiệm
+                  </span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed my-1">
+                  Thực hành mô hình tư duy WAT (Wonder – Ask – Think), quan sát thí nghiệm trực quan (như <em>Sink or Float</em>, sự biến đổi chất), tự rút ra giả thuyết khoa học.
+                </p>
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
+                  <span class="font-bold text-[#8C1823]">Tư duy nghiên cứu &amp; Mô hình WAT</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject 04: Character Building -->
+            <div class="relative flex items-center group z-10">
+              <!-- Number Badge -->
+              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
+                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
+                04
+              </div>
+              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
+              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
+                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
+                    Character Building
+                  </h4>
+                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
+                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
+                    Xây Dựng Nhân Cách
+                  </span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed my-1">
+                  Rèn luyện tư duy thấu cảm, lòng dũng cảm và tinh thần trách nhiệm thông qua đóng vai kịch nghệ và giải quyết các tình huống cảm xúc xã hội (SEL).
+                </p>
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
+                  <span class="font-bold text-[#8C1823]">Tư duy cảm xúc &amp; Bản lĩnh xã hội</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject 05: Arts & Crafts -->
+            <div class="relative flex items-center group z-10">
+              <!-- Number Badge -->
+              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
+                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
+                05
+              </div>
+              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
+              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
+                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
+                    Arts &amp; Crafts (Reggio Emilia)
+                  </h4>
+                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
+                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
+                    Nghệ Thuật Sáng Tạo
+                  </span>
+                </div>
+                <p class="text-xs text-gray-600 leading-relaxed my-1">
+                  Tự do biểu đạt thế giới quan sáng tạo với chất liệu thiên nhiên phong phú, kích hoạt tư duy thẩm mỹ đa chiều, tôn trọng góc nhìn độc bản và không rập khuôn mẫu.
+                </p>
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
+                  <span class="font-bold text-[#8C1823]">Tư duy thẩm mỹ &amp; Tự do sáng tạo</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Real Classroom Showcase Card -->
+          <div class="lg:col-span-5 flex flex-col overflow-hidden group transition-all duration-300 group-hover:-translate-y-0.5" 
+               style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
+            <div class="relative flex-1 min-h-[260px] sm:min-h-[300px] overflow-hidden img-zoom-container bg-gray-100">
+              <img src="assets/img/5.jpg" alt="Lớp học thực tế tại Princeton Academy" class="w-full h-full object-cover">
+              <div class="absolute top-3 left-3 bg-[#8C1823] text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 shadow-md">
+                Lớp Học Thực Tế
+              </div>
+            </div>
+            <div class="p-6 bg-[#46080F] text-white border-t-2 border-[#C89D35]">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 bg-[#C89D35] text-[#46080F] text-[10px] font-bold uppercase tracking-wider">
+                  Môi Trường Kích Hoạt Tư Duy
+                </span>
+                <span class="text-xs text-amber-200 font-serif italic">100% English Immersion</span>
+              </div>
+              <h4 class="font-bold text-base uppercase text-white mb-2">
+                Không Gian Trải Nghiệm Đa Giác Quan
+              </h4>
+              <p class="text-xs text-gray-300 leading-relaxed mb-4">
+                Học sinh tự do tương tác cùng giáo viên bản ngữ, chạm vào giáo cụ thực tế, thực hành phương pháp gợi mở Socratic và chủ động kiến tạo tư duy theo chuẩn phương pháp Hoa Kỳ.
+              </p>
+              <a href="#register" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-colors">
+                <span>Đăng ký tham quan thực tế</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 2: TỔNG QUÁT THƯƠNG HIỆU & 03 TRỤ CỘT TRIẾT LÝ ================= -->
+  <section id="pillars" class="py-20 bg-[#FAF7F2] relative border-b border-[#E8E2D5]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 border border-red-200">
-          TRIẾT LÝ CỐT LÕI
+        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-100/60 px-3.5 py-1.5 border border-red-200">
+          TRIẾT LÝ NỀN TẢNG
         </span>
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
           03 TRỤ CỘT NUÔI DƯỠNG TRỌN VẸN
         </h2>
         <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
-        <p class="text-gray-600 text-sm md:text-base">
-          Tại Princeton Academy, chúng tôi kiến tạo môi trường để trẻ phát triển cân bằng và bền vững cả Thể chất, Trí tuệ và Tâm hồn.
+        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+          Song hành cùng phương pháp rèn luyện tư duy vượt trội, Princeton Academy kiến tạo môi trường để trẻ phát triển cân bằng và bền vững cả Thể chất, Trí tuệ và Tâm hồn.
         </p>
       </div>
 
@@ -262,12 +662,12 @@
                 Cơ thể dẻo dai, nguồn năng lượng thể chất rực rỡ qua các hoạt động vận động đa giác quan. Trẻ giải phóng thể chất tối đa và hình thành thói quen rèn luyện lành mạnh suốt cuộc đời.
               </p>
               <div class="space-y-2 text-xs sm:text-sm text-gray-600 border-l-2 border-[#8C1823] pl-4">
-                <p>• <strong>Vận động thô & Vận động tinh:</strong> Phát triển hệ cơ xương và sự khéo léo qua các giáo cụ vận động.</p>
+                <p>• <strong>Vận động thô &amp; Vận động tinh:</strong> Phát triển hệ cơ xương và sự khéo léo qua các giáo cụ vận động.</p>
                 <p>• <strong>Năng lượng thể chất:</strong> Nuôi dưỡng sức bền và thói quen sinh hoạt khoa học ngay từ những năm đầu đời.</p>
               </div>
             </div>
             <div class="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
-              <span>— VẬN ĐỘNG THÔ & VẬN ĐỘNG TINH</span>
+              <span>— VẬN ĐỘNG THÔ &amp; VẬN ĐỘNG TINH</span>
               <a href="#curriculum" class="hover:underline">Xem phương pháp Kinesthetic →</a>
             </div>
           </div>
@@ -285,15 +685,15 @@
                 BRIGHT MIND
               </h3>
               <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
-                Đôi mắt luôn biết ngạc nhiên trước thế giới, tư duy phản biện sớm (ECT) & bản lĩnh tự tin <em>"I Can Do It!"</em>. Trẻ không tiếp thu thụ động mà tự do kiến tạo ý nghĩa và lập luận độc lập.
+                Đôi mắt luôn biết ngạc nhiên trước thế giới, tư duy phản biện sớm (ECT) &amp; bản lĩnh tự tin <em>"I Can Do It!"</em>. Trẻ không tiếp thu thụ động mà tự do kiến tạo ý nghĩa và lập luận độc lập.
               </p>
               <div class="space-y-2 text-xs sm:text-sm text-gray-600 border-l-2 border-[#C89D35] pl-4">
                 <p>• <strong>Mô hình WAT (Wonder – Ask – Think):</strong> Dạy trẻ cách tự đặt câu hỏi và tìm tòi giải pháp khoa học.</p>
-                <p>• <strong>Toán Common Core & Khoa học STEM:</strong> Thẩm thấu quy luật bản chất qua thực nghiệm trực quan sinh động.</p>
+                <p>• <strong>Toán Common Core &amp; Khoa học STEM:</strong> Thẩm thấu quy luật bản chất qua thực nghiệm trực quan sinh động.</p>
               </div>
             </div>
             <div class="mt-8 pt-4 border-t border-gray-200 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
-              <span>— TƯ DUY PHẢN BIỆN ECT & WAT MODEL</span>
+              <span>— TƯ DUY PHẢN BIỆN ECT &amp; WAT MODEL</span>
               <a href="#curriculum" class="hover:underline">Xem 5 môn học ECT →</a>
             </div>
           </div>
@@ -331,8 +731,8 @@
               </div>
             </div>
             <div class="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-[#8C1823] uppercase tracking-wider">
-              <span>— CẢM XÚC XÃ HỘI SEL & LÒNG THẤU CẢM</span>
-              <a href="#about" class="hover:underline">Xem triết lý giáo dục →</a>
+              <span>— CẢM XÚC XÃ HỘI SEL &amp; LÒNG THẤU CẢM</span>
+              <a href="#curriculum" class="hover:underline">Xem phương pháp đào tạo →</a>
             </div>
           </div>
         </div>
@@ -348,361 +748,6 @@
           Hành trình nuôi dưỡng một tuổi thơ trọn vẹn, sẵn sàng bản lĩnh cho tương lai.
         </p>
       </div>
-
-    </div>
-  </section>
-
-  <!-- ================= SECTION 2: CHƯƠNG TRÌNH HỌC ECT & PEAK FRAMEWORK (INFOGRAPHIC) ================= -->
-  <section id="curriculum" class="py-20 bg-[#FAF7F2] relative border-b border-[#E8E2D5]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-[#8C1823] font-bold text-xs uppercase tracking-widest bg-red-100/60 px-3 py-1 border border-red-200">
-          HỌC THUẬT QUỐC TẾ
-        </span>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#8C1823] mt-3 uppercase tracking-tight">
-          SỰ KẾT HỢP HOÀN HẢO GIỮA PHƯƠNG PHÁP TƯ DUY & CHƯƠNG TRÌNH QUỐC TẾ
-        </h2>
-        <div class="w-16 h-1 bg-[#C89D35] mx-auto my-4"></div>
-        <p class="text-gray-600 text-sm md:text-base">
-          Chương trình học độc quyền thiết kế những điều kiện để việc học tự nhiên diễn ra qua chơi có chủ đích và rèn luyện tư duy phản biện từ sớm.
-        </p>
-      </div>
-
-      <!-- 1. KHUNG PEAK LEARNING FRAMEWORK (INFOGRAPHIC 4 CỘT) -->
-      <div class="mb-20">
-        <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-3 mb-8 border-b border-gray-300 pb-3">
-          <div>
-            <span class="text-xs font-bold text-[#C89D35] uppercase tracking-wider block">Bản quyền Princeton</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-[#8C1823] uppercase">
-              1. Khung Phương Pháp Giáo Dục PEAK Learning Framework™
-            </h3>
-            <p class="text-xs text-gray-600 mt-0.5">Thiết kế những điều kiện để việc học tự nhiên diễn ra</p>
-          </div>
-          <span class="text-xs font-bold uppercase tracking-wider text-[#8C1823] px-3 py-1 bg-white border border-[#8C1823]/30">
-            Bản Quyền Độc Quyền
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <!-- P - Purposeful Play -->
-          <div class="princeton-card border-t-4 border-t-[#8C1823] flex flex-col group overflow-hidden">
-            <div class="relative h-48 overflow-hidden bg-gray-100 img-zoom-container">
-              <img src="assets/img/p.jpg" alt="P - Purposeful Play (Chơi có chủ đích)" class="w-full h-full object-cover">
-              <div class="absolute top-0 left-0 bg-[#8C1823] text-white px-3.5 py-1.5 font-serif font-black text-2xl shadow-md">
-                P
-              </div>
-            </div>
-            <div class="p-5 flex-1 flex flex-col justify-between bg-white">
-              <div>
-                <h4 class="font-bold text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                  Purposeful Play
-                </h4>
-                <div class="text-xs font-semibold text-[#C89D35] mb-2 uppercase tracking-wider">
-                  Chơi có chủ đích
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed">
-                  Chơi là ngôn ngữ tự nhiên của sự học, mang mục tiêu giáo dục rõ ràng. Trẻ khám phá hào hứng và tiếp nhận kiến thức một cách tự nhiên.
-                </p>
-              </div>
-              <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                <span class="font-semibold text-gray-400 uppercase tracking-wider">Trọng tâm</span>
-                <span class="font-bold text-[#8C1823] uppercase">Khám phá tự nhiên</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- E - Experiential Learning -->
-          <div class="princeton-card border-t-4 border-t-[#C89D35] flex flex-col group overflow-hidden">
-            <div class="relative h-48 overflow-hidden bg-gray-100 img-zoom-container">
-              <img src="assets/img/e.jpg" alt="E - Experiential Learning (Học qua trải nghiệm)" class="w-full h-full object-cover">
-              <div class="absolute top-0 left-0 bg-[#C89D35] text-white px-3.5 py-1.5 font-serif font-black text-2xl shadow-md">
-                E
-              </div>
-            </div>
-            <div class="p-5 flex-1 flex flex-col justify-between bg-white">
-              <div>
-                <h4 class="font-bold text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                  Experiential Learning
-                </h4>
-                <div class="text-xs font-semibold text-[#C89D35] mb-2 uppercase tracking-wider">
-                  Học qua trải nghiệm
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed">
-                  Trẻ học sâu nhất từ những điều mình thực sự được "sống", tự tay chạm, quan sát và thao tác thực tế thay vì ghi nhớ thụ động.
-                </p>
-              </div>
-              <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                <span class="font-semibold text-gray-400 uppercase tracking-wider">Trọng tâm</span>
-                <span class="font-bold text-[#C89D35] uppercase">Trực quan & Thao tác</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- A - Active Thinking -->
-          <div class="princeton-card border-t-4 border-t-[#8C1823] flex flex-col group overflow-hidden">
-            <div class="relative h-48 overflow-hidden bg-gray-100 img-zoom-container">
-              <img src="assets/img/a.jpg" alt="A - Active Thinking (Tư duy chủ động)" class="w-full h-full object-cover">
-              <div class="absolute top-0 left-0 bg-[#8C1823] text-white px-3.5 py-1.5 font-serif font-black text-2xl shadow-md">
-                A
-              </div>
-            </div>
-            <div class="p-5 flex-1 flex flex-col justify-between bg-white">
-              <div>
-                <h4 class="font-bold text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                  Active Thinking
-                </h4>
-                <div class="text-xs font-semibold text-[#C89D35] mb-2 uppercase tracking-wider">
-                  Tư duy chủ động
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed">
-                  Áp dụng mô hình <strong>WAT (Wonder – Ask – Think)</strong> & phương pháp hỏi ngược Socratic để kích thích trẻ tự kiến tạo ý nghĩa và lập luận.
-                </p>
-              </div>
-              <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                <span class="font-semibold text-gray-400 uppercase tracking-wider">Trọng tâm</span>
-                <span class="font-bold text-[#8C1823] uppercase">WAT & Socratic</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- K - Kinesthetic Learning -->
-          <div class="princeton-card border-t-4 border-t-[#C89D35] flex flex-col group overflow-hidden">
-            <div class="relative h-48 overflow-hidden bg-gray-100 img-zoom-container">
-              <img src="assets/img/k.jpg" alt="K - Kinesthetic Learning (Học qua vận động)" class="w-full h-full object-cover">
-              <div class="absolute top-0 left-0 bg-[#C89D35] text-white px-3.5 py-1.5 font-serif font-black text-2xl shadow-md">
-                K
-              </div>
-            </div>
-            <div class="p-5 flex-1 flex flex-col justify-between bg-white">
-              <div>
-                <h4 class="font-bold text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                  Kinesthetic Learning
-                </h4>
-                <div class="text-xs font-semibold text-[#C89D35] mb-2 uppercase tracking-wider">
-                  Học qua vận động
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed">
-                  Giải phóng năng lượng cơ thể qua hoạt động thể chất có hướng dẫn để kích thích liên kết nơ-ron thần kinh và phát triển trí tuệ toàn diện.
-                </p>
-              </div>
-              <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                <span class="font-semibold text-gray-400 uppercase tracking-wider">Trọng tâm</span>
-                <span class="font-bold text-[#C89D35] uppercase">Thể chất & Não bộ</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- 2. CHƯƠNG TRÌNH TƯ DUY PHẢN BIỆN SỚM ECT (05 MÔN CỐT LÕI) -->
-      <div>
-        <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-3 mb-8 border-b border-gray-300 pb-3">
-          <div>
-            <span class="text-xs font-bold text-[#8C1823] uppercase tracking-wider block">Môi trường nhúng 100% Tiếng Anh Chuẩn Anh - Mỹ</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-[#8C1823] uppercase">
-              2. Chương Trình Tư Duy Phản Biện Sớm ECT (Early Critical Thinker)
-            </h3>
-            <p class="text-xs text-gray-600 mt-0.5">Tiếp cận 05 môn học cốt lõi bằng tiếng Anh thông qua trải nghiệm trực quan</p>
-          </div>
-          <span class="text-xs font-bold uppercase tracking-wider text-[#8C1823] px-3 py-1 bg-white border border-[#8C1823]/30">
-            100% English Immersion
-          </span>
-        </div>
-
-        <!-- 5 Core Subjects - Step-by-Step Numbered Layout with Classroom Showcase -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          <!-- Left: 5 Numbered Subject Bars with Continuous Timeline Line (Evenly Distributed & Dead-Center Aligned) -->
-          <div class="relative lg:col-span-7 space-y-4">
-            
-            <!-- Continuous vertical timeline line passing dead-center through all circle badges (Extends top to bottom) -->
-            <div class="absolute left-6 sm:left-7 top-0 bottom-0 w-1 bg-[#8C1823] -translate-x-1/2 z-0"></div>
-            
-            <!-- Subject 01: ELA -->
-            <div class="relative flex items-center group z-10">
-              <!-- Number Badge -->
-              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
-                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
-                01
-              </div>
-              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
-              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
-                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
-                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                    English Language Arts (ELA)
-                  </h4>
-                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
-                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
-                    Tiếng Anh Ngôn Ngữ
-                  </span>
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed my-1">
-                  Thẩm thấu Tiếng Anh tự nhiên qua âm nhạc, câu chuyện kinh điển, ngữ âm chuẩn xác và môi trường giao tiếp tương tác hàng ngày.
-                </p>
-                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
-                  <span class="font-bold text-[#8C1823]">Phát âm chuẩn & Phản xạ tự nhiên</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Subject 02: Math -->
-            <div class="relative flex items-center group z-10">
-              <!-- Number Badge -->
-              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
-                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
-                02
-              </div>
-              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
-              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
-                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
-                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                    Math (Toán Tư Duy Common Core)
-                  </h4>
-                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
-                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
-                    Toán Tư Duy
-                  </span>
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed my-1">
-                  Hiểu bản chất "lượng" và quy luật không gian qua giáo cụ trực quan sinh động trước khi bắt đầu ghi nhớ mặt "số".
-                </p>
-                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
-                  <span class="font-bold text-[#8C1823]">Chuẩn Common Core Hoa Kỳ</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Subject 03: Science / STEM -->
-            <div class="relative flex items-center group z-10">
-              <!-- Number Badge -->
-              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
-                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
-                03
-              </div>
-              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
-              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
-                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
-                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                    Science / STEM
-                  </h4>
-                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
-                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
-                    Khoa Học Thực Nghiệm
-                  </span>
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed my-1">
-                  Thử nghiệm trực quan (như thí nghiệm <em>Sink or Float</em>, sự biến đổi chất), tự quan sát hiện tượng và rút ra giả thuyết khoa học.
-                </p>
-                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
-                  <span class="font-bold text-[#8C1823]">Phương pháp nghiên cứu khoa học</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Subject 04: Character Building -->
-            <div class="relative flex items-center group z-10">
-              <!-- Number Badge -->
-              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
-                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
-                04
-              </div>
-              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
-              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
-                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
-                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                    Character Building
-                  </h4>
-                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
-                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
-                    Xây Dựng Nhân Cách
-                  </span>
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed my-1">
-                  Học lòng thấu cảm, sự dũng cảm và tinh thần trách nhiệm thông qua đóng vai kịch nghệ và giải quyết các tình huống cảm xúc xã hội (SEL).
-                </p>
-                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
-                  <span class="font-bold text-[#8C1823]">Rèn luyện bản lĩnh & Sự tử tế</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Subject 05: Arts & Crafts -->
-            <div class="relative flex items-center group z-10">
-              <!-- Number Badge -->
-              <div class="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white text-[#8C1823] font-serif font-black text-lg sm:text-xl flex items-center justify-center flex-shrink-0 z-10 transition-all duration-300 group-hover:bg-[#8C1823] group-hover:text-white group-hover:scale-105" 
-                   style="border: 2px solid #8C1823; box-shadow: 0 4px 14px rgba(140, 24, 35, 0.25);">
-                05
-              </div>
-              <!-- Content Bar with EXACT UNIFORM HEIGHT for perfect equidistant spacing -->
-              <div class="ml-4 sm:ml-5 pl-5 sm:pl-6 pr-5 py-3.5 bg-white flex-1 min-h-[142px] lg:h-[142px] flex flex-col justify-between transition-all duration-300 group-hover:-translate-y-0.5" 
-                   style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
-                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <h4 class="font-bold text-sm sm:text-base text-[#8C1823] uppercase tracking-wide group-hover:text-[#46080F] transition-colors">
-                    Arts & Crafts (Reggio Emilia)
-                  </h4>
-                  <span class="text-[11px] font-bold uppercase tracking-wider whitespace-nowrap px-2.5 py-0.5" 
-                        style="border: 1px solid #C89D35; color: #C89D35; background: #FFFDF5;">
-                    Nghệ Thuật Sáng Tạo
-                  </span>
-                </div>
-                <p class="text-xs text-gray-600 leading-relaxed my-1">
-                  Tự do biểu đạt thế giới quan sáng tạo với chất liệu thiên nhiên phong phú, tôn trọng góc nhìn cá nhân và không áp đặt "sản phẩm mẫu".
-                </p>
-                <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                  <span class="font-bold text-gray-400 uppercase tracking-wider text-[10px]">TRỌNG TÂM</span>
-                  <span class="font-bold text-[#8C1823]">Tư duy thẩm mỹ & Tự do biểu đạt</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Right: Real Classroom Showcase Card -->
-          <div class="lg:col-span-5 flex flex-col overflow-hidden group transition-all duration-300 group-hover:-translate-y-0.5" 
-               style="background-color: #FFFFFF; border: 1.5px solid #8C1823; box-shadow: 0 10px 25px rgba(140, 24, 35, 0.22);">
-            <div class="relative flex-1 min-h-[260px] sm:min-h-[300px] overflow-hidden img-zoom-container bg-gray-100">
-              <img src="assets/img/5.jpg" alt="Lớp học thực tế tại Princeton Academy" class="w-full h-full object-cover">
-              <div class="absolute top-3 left-3 bg-[#8C1823] text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 shadow-md">
-                Lớp Học Thực Tế
-              </div>
-            </div>
-            <div class="p-6 bg-[#46080F] text-white border-t-2 border-[#C89D35]">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="px-2 py-0.5 bg-[#C89D35] text-[#46080F] text-[10px] font-bold uppercase tracking-wider">
-                  Môi Trường Song Ngữ
-                </span>
-                <span class="text-xs text-amber-200 font-serif italic">100% English Immersion</span>
-              </div>
-              <h4 class="font-bold text-base uppercase text-white mb-2">
-                Không Gian Trải Nghiệm Đa Giác Quan
-              </h4>
-              <p class="text-xs text-gray-300 leading-relaxed mb-4">
-                Học sinh tự do tương tác cùng giáo viên bản ngữ, chạm vào giáo cụ thực tế và chủ động kiến tạo tri thức theo chuẩn phương pháp Hoa Kỳ.
-              </p>
-              <a href="#register" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-colors">
-                <span>Đăng ký tham quan thực tế</span>
-                <span>→</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-
 
     </div>
   </section>
