@@ -1130,17 +1130,12 @@
 
         </div>
 
-        <!-- Cột Phải: Form Đăng Ký 2 Tab Chuẩn Ảnh Mẫu (lg:col-span-5) -->
+        <!-- Cột Phải: Form Đăng Ký Chuẩn Ảnh Mẫu (lg:col-span-5) -->
         <div id="register" class="lg:col-span-5 bg-white border-2 border-[#8C1823] overflow-hidden sticky top-28 shadow-lg">
           
-          <!-- Tabs Header: Phụ Huynh vs Đối Tác -->
-          <div class="grid grid-cols-2 text-center text-xs font-bold uppercase tracking-wider">
-            <button id="tab-btn-parent" class="tab-btn active py-4 px-3 flex items-center justify-center focus:outline-none">
-              DÀNH CHO PHỤ HUYNH
-            </button>
-            <button id="tab-btn-partner" class="tab-btn py-4 px-3 flex items-center justify-center focus:outline-none">
-              DÀNH CHO ĐỐI TÁC & NHÀ ĐẦU TƯ
-            </button>
+          <!-- Header: Dành Cho Phụ Huynh (Giữ nguyên phong cách CSS cũ) -->
+          <div class="tab-btn active py-4 px-3 flex items-center justify-center text-xs font-bold uppercase tracking-wider">
+            DÀNH CHO PHỤ HUYNH
           </div>
 
           <!-- Form Container Body -->
@@ -1154,7 +1149,7 @@
               </p>
             </div>
 
-            <!-- Tab 1: Form Phụ Huynh -->
+            <!-- Form Phụ Huynh -->
             <div id="form-parent-content" class="space-y-4">
               <div class="p-3 bg-red-50 text-center border-l-4 border-[#8C1823] border-t border-r border-b border-red-100 text-xs text-[#8C1823] font-bold uppercase">
                 "MANG ĐẾN CHO CON MỘT TUỔI THƠ VỮNG CHÃI NGAY HÔM NAY"
@@ -1208,62 +1203,6 @@
 
                 <button type="submit" class="w-full py-3.5 bg-[#8C1823] hover:bg-[#70111A] text-white text-xs font-bold uppercase tracking-wider transition-colors duration-200">
                   ĐĂNG KÝ THAM QUAN NGAY
-                </button>
-              </form>
-            </div>
-
-            <!-- Tab 2: Form Đối Tác & Nhà Đầu Tư -->
-            <div id="form-partner-content" class="hidden space-y-4">
-              <div class="p-3 bg-amber-50 text-center border-l-4 border-[#C89D35] border-t border-r border-b border-amber-200 text-xs text-[#8C1823] font-bold uppercase">
-                "MANG PRINCETON VỀ CỘNG ĐỒNG CỦA BẠN"
-              </div>
-
-              <form id="form-partner" class="space-y-3.5">
-                <div>
-                  <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Họ và tên Quý Đối Tác / Đại diện *</label>
-                  <input type="text" id="partner-name" required placeholder="Ví dụ: Trần Quốc Huy" class="w-full text-xs px-3.5 py-2.5 border border-gray-300 focus:outline-none focus:border-[#8C1823]">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Số điện thoại *</label>
-                    <input type="tel" id="partner-phone" required placeholder="09xx xxx xxx" class="w-full text-xs px-3.5 py-2.5 border border-gray-300 focus:outline-none focus:border-[#8C1823]">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Email doanh nghiệp</label>
-                    <input type="email" id="partner-email" placeholder="contact@domain.com" class="w-full text-xs px-3.5 py-2.5 border border-gray-300 focus:outline-none focus:border-[#8C1823]">
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Tỉnh / Thành phố dự kiến mở trường *</label>
-                  <input type="text" id="partner-province" required placeholder="Ví dụ: Bắc Ninh, Quảng Ninh, Cần Thơ..." class="w-full text-xs px-3.5 py-2.5 border border-gray-300 focus:outline-none focus:border-[#8C1823]">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Mô hình dự kiến</label>
-                  <select id="partner-model" class="w-full text-xs px-3.5 py-2.5 border border-gray-300 focus:outline-none focus:border-[#8C1823] bg-white">
-                    <option value="Mở cơ sở mầm non quốc tế mới">Mở cơ sở mầm non quốc tế mới</option>
-                    <option value="Chuyển đổi trường mầm non hiện hữu">Chuyển đổi trường hiện hữu sang thương hiệu Princeton</option>
-                    <option value="Tích hợp chương trình PEAK & ECT">Tích hợp chương trình bản quyền PEAK & ECT</option>
-                    <option value="Nhượng quyền khu vực độc quyền">Nhượng quyền khu vực độc quyền</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Ghi chú (Diện tích mặt bằng, quy mô dự kiến...)</label>
-                  <textarea id="partner-notes" rows="2" placeholder="Thông tin bổ sung..." class="w-full text-xs px-3.5 py-2 border border-gray-300 focus:outline-none focus:border-[#8C1823]"></textarea>
-                </div>
-
-                <div class="flex items-start gap-2 pt-1">
-                  <input type="checkbox" id="partner-agree" checked required class="mt-0.5 text-[#8C1823]">
-                  <label for="partner-agree" class="text-[11px] text-gray-500 leading-tight">
-                    Tôi cam kết thông tin chính xác và đồng ý nhận hồ sơ chuyển giao chiến lược.
-                  </label>
-                </div>
-
-                <button type="submit" class="w-full py-3.5 bg-[#C89D35] hover:bg-[#B28827] text-white text-xs font-bold uppercase tracking-wider transition-colors duration-200">
-                  NHẬN HỒ SƠ NHƯỢNG QUYỀN
                 </button>
               </form>
             </div>

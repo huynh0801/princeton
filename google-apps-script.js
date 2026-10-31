@@ -1,32 +1,33 @@
 /**
  * =========================================================================
- * GOOGLE APPS SCRIPT: TỰ ĐỘNG THU THẬP LEAD VÀO GOOGLE SHEETS
- * Dành cho Landing Page: Princeton Academy (Phụ Huynh & Đối Tác)
+ * GOOGLE APPS SCRIPT: TỰ ĐỘNG THU THẬP LEAD PHỤ HUYNH VÀO GOOGLE SHEETS
+ * Dành riêng cho Landing Page: Tuyển sinh Princeton Academy (Team Marketing)
  * =========================================================================
  * 
- * HƯỚNG DẪN 3 BƯỚC TRIỂN KHAI:
- * 1. Mở Google Sheet (trang tính mới), vào menu: Tiện ích mở rộng (Extensions) > Apps Script.
- * 2. Xóa hết code mặc định, dán toàn bộ nội dung file này vào và bấm icon Lưu (Save / Ctrl + S).
- * 3. Bấm "Triển khai" (Deploy) > "Tùy chọn triển khai mới" (New deployment):
- *    - Chọn loại: "Ứng dụng web" (Web app).
- *    - Mô tả: "Princeton Academy Lead Form".
- *    - Thực thi dưới dạng (Execute as): "Tôi" (Me - email của bạn).
- *    - Ai có quyền truy cập (Who has access): "Bất kỳ ai" (Anyone).
- *    - Bấm "Triển khai" (Deploy) > Cấp quyền truy cập nếu Google hỏi.
- *    - Sao chép "URL ứng dụng web" (dạng https://script.google.com/macros/s/.../exec).
- * 4. Dán URL đó vào biến GOOGLE_SHEET_URL trong file assets/js/main.js của landing page.
+ * ĐÃ LOẠI BỎ HOÀN TOÀN: Logic tự tạo sheet "Đối Tác".
+ * File này CHỈ phục vụ duy nhất một mục đích: Nhận lead Phụ Huynh.
+ * 
+ * HƯỚNG DẪN CẬP NHẬT TRÊN GOOGLE SHEETS (GIỮ NGUYÊN LINK CŨ):
+ * 1. Mở Google Sheet của bạn > Vào Tiện ích mở rộng (Extensions) > Apps Script.
+ * 2. Xóa hết code cũ, dán toàn bộ nội dung file này vào > Bấm icon Lưu (Ctrl + S).
+ * 3. Để cập nhật mà KHÔNG BỊ ĐỔI LINK WEB APP:
+ *    - Bấm "Triển khai" (Deploy) > Chọn "Quản lý bản triển khai" (Manage deployments).
+ *    - Bấm vào icon Cây bút (Chỉnh sửa / Edit) ở góc trên bên phải.
+ *    - Ở mục "Phiên bản" (Version): Chọn "Phiên bản mới" (New version).
+ *    - Bấm "Triển khai" (Deploy).
+ *    -> Link URL Web App sẽ được GIỮ NGUYÊN 100%, không cần đổi gì trên landing page.
  */
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
-  // Khóa 10 giây để chống xung đột ghi dữ liệu đồng thời nếu nhiều người bấm cùng lúc
+  // Khóa 10 giây để chống xung đột ghi dữ liệu đồng thời nếu nhiều phụ huynh gửi cùng lúc
   lock.tryLock(10000);
 
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var params = {};
 
-    // 1. Phân tích dữ liệu nhận được (hỗ trợ cả FormData, x-www-form-urlencoded và JSON)
+    // 1. Phân tích dữ liệu nhận được (hỗ trợ FormData, x-www-form-urlencoded và JSON)
     if (e && e.parameter && Object.keys(e.parameter).length > 0) {
       params = e.parameter;
     } else if (e && e.postData && e.postData.contents) {
@@ -37,97 +38,62 @@ function doPost(e) {
       }
     }
 
-    var formType = params.formType || (params.type === 'partner' ? 'Đối Tác' : 'Phụ Huynh');
     var timestamp = params.createdAt || Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm:ss");
 
     // =====================================================================
-    // TRƯỜNG HỢP 1: LEAD ĐỐI TÁC & NHÀ ĐẦU TƯ
+    // CHỈ THU THẬP LEAD PHỤ HUYNH ĐĂNG KÝ THAM QUAN / TUYỂN SINH
+    // Không tạo thêm bất kỳ Sheet Đối Tác nào khác
     // =====================================================================
-    if (formType === 'Đối Tác' || params.type === 'partner') {
-      var sheetPartner = ss.getSheetByName("Đối Tác");
-      if (!sheetPartner) {
-        sheetPartner = ss.insertSheet("Đối Tác");
-        var headersPartner = [
-          "Thời Gian Gửi", 
-          "Họ & Tên Đại Diện", 
-          "Số Điện Thoại", 
-          "Email Doanh Nghiệp", 
-          "Tỉnh / Thành Phố", 
-          "Mô Hình Dự Kiến", 
-          "Ghi Chú Mặt Bằng / Quy Mô"
-        ];
-        sheetPartner.appendRow(headersPartner);
-        var headerRangePartner = sheetPartner.getRange(1, 1, 1, headersPartner.length);
-        headerRangePartner.setFontWeight("bold");
-        headerRangePartner.setBackground("#C89D35"); // Màu vàng Gold Princeton
-        headerRangePartner.setFontColor("#FFFFFF");
-        headerRangePartner.setHorizontalAlignment("center");
-        sheetPartner.setFrozenRows(1);
-        
-        // Căn độ rộng cột đẹp mắt
-        sheetPartner.setColumnWidth(1, 160);
-        sheetPartner.setColumnWidth(2, 200);
-        sheetPartner.setColumnWidth(3, 140);
-        sheetPartner.setColumnWidth(4, 200);
-        sheetPartner.setColumnWidth(5, 180);
-        sheetPartner.setColumnWidth(6, 260);
-        sheetPartner.setColumnWidth(7, 300);
-      }
-
-      sheetPartner.appendRow([
-        timestamp,
-        params.name || '',
-        params.phone ? "'" + params.phone : '', // Thêm nháy đơn để không bị mất số 0 đầu
-        params.email || '',
-        params.province || '',
-        params.model || '',
-        params.notes || ''
-      ]);
-
-    // =====================================================================
-    // TRƯỜNG HỢP 2: LEAD PHỤ HUYNH ĐĂNG KÝ THAM QUAN
-    // =====================================================================
-    } else {
-      var sheetParent = ss.getSheetByName("Phụ Huynh");
-      if (!sheetParent) {
+    var sheetParent = ss.getSheetByName("Phụ Huynh");
+    
+    // Nếu chưa có sheet "Phụ Huynh", tự động khởi tạo chuẩn chỉnh
+    if (!sheetParent) {
+      var activeSheet = ss.getActiveSheet();
+      // Nếu sheet hiện tại là sheet trống mặc định ("Trang tính 1" hoặc "Sheet1"), đổi tên trực tiếp
+      if (activeSheet && (activeSheet.getName() === "Trang tính 1" || activeSheet.getName() === "Sheet1") && activeSheet.getLastRow() === 0) {
+        sheetParent = activeSheet;
+        sheetParent.setName("Phụ Huynh");
+      } else {
         sheetParent = ss.insertSheet("Phụ Huynh");
-        var headersParent = [
-          "Thời Gian Gửi", 
-          "Họ & Tên Phụ Huynh", 
-          "Số Điện Thoại", 
-          "Độ Tuổi Bé", 
-          "Email Liên Hệ", 
-          "Cơ Sở Quan Tâm", 
-          "Ghi Chú Gửi Trường"
-        ];
-        sheetParent.appendRow(headersParent);
-        var headerRangeParent = sheetParent.getRange(1, 1, 1, headersParent.length);
-        headerRangeParent.setFontWeight("bold");
-        headerRangeParent.setBackground("#8C1823"); // Màu đỏ Crimson Princeton
-        headerRangeParent.setFontColor("#FFFFFF");
-        headerRangeParent.setHorizontalAlignment("center");
-        sheetParent.setFrozenRows(1);
-
-        // Căn độ rộng cột đẹp mắt
-        sheetParent.setColumnWidth(1, 160);
-        sheetParent.setColumnWidth(2, 200);
-        sheetParent.setColumnWidth(3, 140);
-        sheetParent.setColumnWidth(4, 150);
-        sheetParent.setColumnWidth(5, 200);
-        sheetParent.setColumnWidth(6, 280);
-        sheetParent.setColumnWidth(7, 300);
       }
 
-      sheetParent.appendRow([
-        timestamp,
-        params.name || '',
-        params.phone ? "'" + params.phone : '', // Thêm nháy đơn để không bị mất số 0 đầu
-        params.childAge || '',
-        params.email || '',
-        params.campus || '',
-        params.notes || ''
-      ]);
+      var headersParent = [
+        "Thời Gian Gửi", 
+        "Họ & Tên Phụ Huynh", 
+        "Số Điện Thoại", 
+        "Độ Tuổi Bé", 
+        "Email Liên Hệ", 
+        "Cơ Sở Quan Tâm", 
+        "Ghi Chú Gửi Trường"
+      ];
+      sheetParent.appendRow(headersParent);
+      var headerRangeParent = sheetParent.getRange(1, 1, 1, headersParent.length);
+      headerRangeParent.setFontWeight("bold");
+      headerRangeParent.setBackground("#8C1823"); // Màu đỏ Crimson Princeton chuẩn thương hiệu
+      headerRangeParent.setFontColor("#FFFFFF");
+      headerRangeParent.setHorizontalAlignment("center");
+      sheetParent.setFrozenRows(1);
+
+      // Căn độ rộng cột đẹp mắt
+      sheetParent.setColumnWidth(1, 160);
+      sheetParent.setColumnWidth(2, 200);
+      sheetParent.setColumnWidth(3, 140);
+      sheetParent.setColumnWidth(4, 150);
+      sheetParent.setColumnWidth(5, 200);
+      sheetParent.setColumnWidth(6, 280);
+      sheetParent.setColumnWidth(7, 300);
     }
+
+    // Ghi dữ liệu phụ huynh mới vào dòng tiếp theo
+    sheetParent.appendRow([
+      timestamp,
+      params.name || '',
+      params.phone ? "'" + params.phone : '', // Thêm nháy đơn phía trước để Google Sheet không làm mất số 0 đầu
+      params.childAge || '',
+      params.email || '',
+      params.campus || '',
+      params.notes || ''
+    ]);
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: "success" }))
@@ -145,6 +111,6 @@ function doPost(e) {
 
 function doGet(e) {
   return ContentService
-    .createTextOutput("Princeton Academy Google Apps Script Web App is active!")
+    .createTextOutput("Princeton Academy Lead Collection Web App is active (Parent Enrollment Only).")
     .setMimeType(ContentService.MimeType.TEXT);
 }

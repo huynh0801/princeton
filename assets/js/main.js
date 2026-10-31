@@ -100,7 +100,6 @@ let currentCampusIndex = 0;
 document.addEventListener('DOMContentLoaded', () => {
   renderCampusesList();
   selectCampus(0);
-  initFormTabs();
   initFormSubmissions();
   initMobileMenu();
   initBackToTop();
@@ -183,34 +182,9 @@ function selectCampus(index) {
   }
 }
 
-// Chuyển đổi tab Phụ Huynh vs Đối Tác
-function initFormTabs() {
-  const tabParent = document.getElementById('tab-btn-parent');
-  const tabPartner = document.getElementById('tab-btn-partner');
-  const formParent = document.getElementById('form-parent-content');
-  const formPartner = document.getElementById('form-partner-content');
-
-  if (!tabParent || !tabPartner) return;
-
-  tabParent.addEventListener('click', () => {
-    tabParent.classList.add('active');
-    tabPartner.classList.remove('active');
-    formParent.classList.remove('hidden');
-    formPartner.classList.add('hidden');
-  });
-
-  tabPartner.addEventListener('click', () => {
-    tabPartner.classList.add('active');
-    tabParent.classList.remove('active');
-    formPartner.classList.remove('hidden');
-    formParent.classList.add('hidden');
-  });
-}
-
 // Xử lý gửi Form & Tích hợp Google Sheets
 function initFormSubmissions() {
   const formParent = document.getElementById('form-parent');
-  const formPartner = document.getElementById('form-partner');
 
   // Hàm gửi dữ liệu bất đồng bộ lên Google Sheets Web App
   async function sendToGoogleSheet(data) {
@@ -292,56 +266,6 @@ function initFormSubmissions() {
     });
   }
 
-  // 2. Xử lý Form Đối Tác & Nhà Đầu Tư
-  if (formPartner) {
-    formPartner.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = formPartner.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.innerHTML : '';
-
-      const name = document.getElementById('partner-name').value.trim();
-      const phone = document.getElementById('partner-phone').value.trim();
-      const email = document.getElementById('partner-email') ? document.getElementById('partner-email').value.trim() : '';
-      const province = document.getElementById('partner-province') ? document.getElementById('partner-province').value.trim() : '';
-      const model = document.getElementById('partner-model') ? document.getElementById('partner-model').value : '';
-      const notes = document.getElementById('partner-notes') ? document.getElementById('partner-notes').value.trim() : '';
-
-      if (!name || !phone) {
-        alert('Vui lòng điền họ tên và số điện thoại của Quý đối tác!');
-        return;
-      }
-
-      // Trạng thái loading
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'ĐANG GỬI THÔNG TIN...';
-      }
-
-      const payload = {
-        formType: 'Đối Tác',
-        name: name,
-        phone: phone,
-        email: email,
-        province: province,
-        model: model,
-        notes: notes,
-        createdAt: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
-      };
-
-      await sendToGoogleSheet(payload);
-
-      showSuccessModal(
-        'Đăng Ký Hợp Tác Chiến Lược Thành Công!',
-        `Cảm ơn Quý đối tác / Nhà đầu tư <strong>${name}</strong>. Đại diện Ban Phát Triển Nhượng Quyền Toàn Quốc của Princeton Academy sẽ liên hệ trực tiếp qua số <strong>${phone}</strong> để gửi hồ sơ chuyển giao và tư vấn kế hoạch phát triển tại <strong>${province || 'khu vực của bạn'}</strong>.`
-      );
-      formPartner.reset();
-
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      }
-    });
-  }
 }
 
 // Modal thông báo thành công
