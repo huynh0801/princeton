@@ -9,6 +9,16 @@ test('Security Header & Config Tests', async (t) => {
     assert.match(gitignore, /\.env\*/, '.gitignore should ignore .env* files');
   });
 
+  await t.test('.vercelignore blocks internal files and scripts from public deployment', () => {
+    const vercelignore = fs.readFileSync(path.join(__dirname, '../.vercelignore'), 'utf8');
+    assert.match(vercelignore, /google-apps-script\.js/, 'Must ignore google-apps-script.js');
+    assert.match(vercelignore, /serve\.js/, 'Must ignore serve.js');
+    assert.match(vercelignore, /test\//, 'Must ignore test/');
+    assert.match(vercelignore, /scripts\//, 'Must ignore scripts/');
+    assert.match(vercelignore, /docs\//, 'Must ignore docs/');
+    assert.match(vercelignore, /\*\.pdf/, 'Must ignore *.pdf');
+  });
+
   await t.test('vercel.json includes security headers (CSP, HSTS, Permissions-Policy) and removes deprecated X-XSS-Protection', () => {
     const vercelConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../vercel.json'), 'utf8'));
     const globalHeaders = vercelConfig.headers.find(h => h.source === '/(.*)').headers;

@@ -1,0 +1,27 @@
+# =========================================================================
+# Vercel Deployment Ignore Configuration (.vercelignore)
+# Prevents internal scripts, docs, and sensitive files from being deployed
+# or publicly accessible as static assets on Vercel.
+# =========================================================================
+
+# Internal documents, specs & briefs
+*.pdf
+docs/
+
+# Google Apps Script & local dev server
+google-apps-script.js
+serve.js
+
+# Internal testing & utility scripts
+test/
+scripts/
+
+# IDE, OS & backups
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+image/
+logo/
+*.tmp
