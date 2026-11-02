@@ -1,0 +1,129 @@
+const test = require('node:test');
+const assert = require('node:assert');
+const fs = require('node:fs');
+const path = require('node:path');
+
+test('Security Header & Config Tests', async (t) => {
+  await t.test('.gitignore ignores .env files', () => {
+    const gitignore = fs.readFileSync(path.join(__dirname, '../.gitignore'), 'utf8');
+    assert.match(gitignore, /\.env\*/, '.gitignore should ignore .env* files');
+  });
+
+  await t.test('vercel.json includes security headers (CSP, HSTS, Permissions-Policy) and removes deprecated X-XSS-Protection', () => {
+    const vercelConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../vercel.json'), 'utf8'));
+    const globalHeaders = vercelConfig.headers.find(h => h.source === '/(.*)').headers;
+    const headerMap = Object.fromEntries(globalHeaders.map(h => [h.key, h.value]));
+
+    assert.ok(headerMap['Content-Security-Policy'], 'Must have Content-Security-Policy');
+    assert.ok(headerMap['Strict-Transport-Security'], 'Must have Strict-Transport-Security');
+    assert.ok(headerMap['Permissions-Policy'], 'Must have Permissions-Policy');
+    assert.strictEqual(headerMap['X-XSS-Protection'], undefined, 'Deprecated X-XSS-Protection should be removed');
+  });
+});
+
+test('Client-side Sanitization & Form Handling Tests', async (t) => {
+  await t.test('main.js includes escapeHtml and uses it in modal rendering', () => {
+    const mainJs = fs.readFileSync(path.join(__dirname, '../assets/js/main.js'), 'utf8');
+    assert.match(mainJs, /function escapeHtml\(/, 'main.js must have escapeHtml function');
+    assert.match(mainJs, /escapeHtml\(name\)/, 'main.js must escape name');
+    assert.match(mainJs, /escapeHtml\(phone\)/, 'main.js must escape phone');
+  });
+
+  await t.test('main.js checks sendToGoogleSheet result and avoids false success', () => {
+    const mainJs = fs.readFileSync(path.join(__dirname, '../assets/js/main.js'), 'utf8');
+    assert.match(mainJs, /const\s+(?:sent|success|res)\s*=\s*await sendToGoogleSheet/, 'main.js must capture sendToGoogleSheet result');
+    assert.match(mainJs, /if\s*\(!(?:sent|success|res)\)/, 'main.js must check if result was unsuccessful');
+  });
+
+  await t.test('HTML forms include honeypot fields', () => {
+    const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+    const partnerHtml = fs.readFileSync(path.join(__dirname, '../partner.html'), 'utf8');
+    assert.match(indexHtml, /name="_hp_field"/, 'index.html parent form must have honeypot input');
+    assert.match(partnerHtml, /name="_hp_field"/, 'partner.html forms must have honeypot input');
+  });
+});
+
+test('Serverless API (api/lead.js) Security Tests', async (t) => {
+  const handler = require('../api/lead.js');
+
+  await t.test('api/lead drops honeypot bot submissions without forwarding upstream', async () => {
+    let upstreamCalled = false;
+    process.env.GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/dummy/exec';
+    
+    const originalFetch = global.fetch;
+    global.fetch = async () => {
+      upstreamCalled = true;
+      return { ok: true, text: async () => JSON.stringify({ result: 'success' }) };
+    };
+
+    let statusCode = null;
+    let responseData = null;
+    const res = {
+      status(code) {
+        statusCode = code;
+        return this;
+      },
+      json(data) {
+        responseData = data;
+        return this;
+      },
+      setHeader() {}
+    };
+
+    const req = {
+      method: 'POST',
+      headers: {
+        origin: 'https://princetonacademy.vn'
+      },
+      body: {
+        name: 'Spam Bot',
+        phone: '0988284799',
+        _hp_field: 'I am a bot'
+      }
+    };
+
+    await handler(req, res);
+    global.fetch = originalFetch;
+
+    assert.strictEqual(statusCode, 200);
+    assert.strictEqual(responseData.result, 'success');
+    assert.strictEqual(upstreamCalled, false, 'Upstream must NOT be called when honeypot is filled');
+  });
+
+  await t.test('api/lead rejects untrusted third-party origins (CSRF protection)', async () => {
+    const req = {
+      method: 'POST',
+      headers: {
+        origin: 'https://evil-hacker-site.com'
+      },
+      body: {
+        name: 'Target User',
+        phone: '0988284799'
+      }
+    };
+
+    let statusCode = null;
+    let responseData = null;
+    const res = {
+      status(code) {
+        statusCode = code;
+        return this;
+      },
+      json(data) {
+        responseData = data;
+        return this;
+      },
+      setHeader() {}
+    };
+
+    await handler(req, res);
+    assert.strictEqual(statusCode, 403, 'Should reject untrusted origin with 403');
+    assert.strictEqual(responseData.result, 'error');
+  });
+});
+
+test('serve.js Path Traversal & Robustness Tests', async (t) => {
+  const serveContent = fs.readFileSync(path.join(__dirname, '../serve.js'), 'utf8');
+  assert.match(serveContent, /try\s*\{[\s\S]*decodeURI/, 'serve.js should catch URIError in decodeURI');
+  assert.match(serveContent, /startsWith\((?:ROOT_DIR|__dirname)\)/, 'serve.js should verify path stays within root directory');
+});

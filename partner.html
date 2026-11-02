@@ -247,6 +247,10 @@
                 </p>
 
                 <form id="hero-partner-form" class="space-y-3">
+                  <!-- Anti-spam Honeypot (Invisible to humans) -->
+                  <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                    <input type="text" name="_hp_field" id="hero-hp-field" tabindex="-1" autocomplete="off">
+                  </div>
                   <div>
                     <label for="hero-name" class="block text-[10px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Họ và tên Nhà đầu tư <span class="text-[#8C1823]">*</span></label>
                     <input type="text" id="hero-name" name="name" required autocomplete="name" placeholder="Ví dụ: Nguyễn Văn An" class="form-field">
@@ -1086,6 +1090,10 @@
               </div>
 
               <form id="final-partner-form" class="mt-5 space-y-3.5">
+                <!-- Anti-spam Honeypot (Invisible to humans) -->
+                <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                  <input type="text" name="_hp_field" id="final-hp-field" tabindex="-1" autocomplete="off">
+                </div>
                 <div>
                   <label for="final-name" class="block text-[10px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Họ và tên Quý đối tác <span class="text-[#8C1823]">*</span></label>
                   <input type="text" id="final-name" name="name" required autocomplete="name" placeholder="Ví dụ: Trần Quốc Huy" class="form-field">

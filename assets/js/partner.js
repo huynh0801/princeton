@@ -94,6 +94,7 @@ function initPartnerForms() {
         model: "Tư vấn theo ngân sách đầu tư",
         budget,
         notes: `Nguồn: Hero Form | Ngân sách đầu tư dự kiến: ${budget || "Chưa xác định"}`,
+        _hp_field: valueOf("hero-hp-field"),
         createdAt: nowInVietnam()
       };
 
@@ -125,6 +126,7 @@ function initPartnerForms() {
         province,
         model,
         notes: "Nguồn: Form CTA cuối trang - Nhận Franchise Kit & Bảng dòng tiền",
+        _hp_field: valueOf("final-hp-field"),
         createdAt: nowInVietnam()
       };
 

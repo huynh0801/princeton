@@ -232,6 +232,8 @@ function initFormSubmissions() {
         submitBtn.innerHTML = 'ĐANG GỬI THÔNG TIN...';
       }
 
+      const hpField = document.getElementById('parent-hp-field') ? document.getElementById('parent-hp-field').value : '';
+
       const payload = {
         formType: 'Phụ Huynh',
         name: name,
@@ -240,24 +242,39 @@ function initFormSubmissions() {
         email: email,
         campus: campus,
         notes: notes,
+        _hp_field: hpField,
         createdAt: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
       };
 
-      await sendToGoogleSheet(payload);
-
-      showSuccessModal(
-        'Đăng Ký Tham Quan Thành Công!',
-        `Cảm ơn Quý phụ huynh <strong>${name}</strong> đã quan tâm tới Princeton Academy. Ban tuyển sinh ${campus ? `cơ sở <strong>${campus}</strong>` : 'nhà trường'} sẽ liên hệ với Quý phụ huynh qua số điện thoại <strong>${phone}</strong> trong vòng 24 giờ làm việc.`
-      );
-      formParent.reset();
+      const sent = await sendToGoogleSheet(payload);
 
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
       }
+
+      if (!sent) {
+        alert('Kết nối đang gián đoạn. Vui lòng thử lại hoặc gọi trực tiếp hotline 0988.284.799.');
+        return;
+      }
+
+      showSuccessModal(
+        'Đăng Ký Tham Quan Thành Công!',
+        `Cảm ơn Quý phụ huynh <strong>${escapeHtml(name)}</strong> đã quan tâm tới Princeton Academy. Ban tuyển sinh ${campus ? `cơ sở <strong>${escapeHtml(campus)}</strong>` : 'nhà trường'} sẽ liên hệ với Quý phụ huynh qua số điện thoại <strong>${escapeHtml(phone)}</strong> trong vòng 24 giờ làm việc.`
+      );
+      formParent.reset();
     });
   }
 
+}
+
+function escapeHtml(value) {
+  return String(value == null ? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 // Modal thông báo thành công
