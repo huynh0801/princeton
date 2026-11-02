@@ -8,7 +8,7 @@
 // Hướng dẫn: Dán Web App URL của Google Apps Script vào biến dưới đây.
 // Ví dụ: const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/.../exec";
 // =========================================================================
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx8Lbh6mDVfMqUP0HqhCgW504f497bfTF_eGW8AQ6hwrEp_x3MO3Cwb2_Cv6ynnvqqTUQ/exec";
+const LEAD_API_URL = "/api/lead";
 
 // 1. Dữ liệu 10 cơ sở chi nhánh toàn quốc
 const CAMPUSES = [
@@ -188,27 +188,19 @@ function initFormSubmissions() {
 
   // Hàm gửi dữ liệu bất đồng bộ lên Google Sheets Web App
   async function sendToGoogleSheet(data) {
-    if (!GOOGLE_SHEET_URL) {
-      console.info("💡 Lưu ý: GOOGLE_SHEET_URL chưa được điền. Dữ liệu chỉ hiển thị demo trên trình duyệt.");
-      return true;
-    }
-
     try {
       const urlParams = new URLSearchParams();
       for (const [key, value] of Object.entries(data)) {
         urlParams.append(key, value);
       }
 
-      // Gửi POST x-www-form-urlencoded dạng no-cors để tương thích 100% với Google Apps Script e.parameter
-      await fetch(GOOGLE_SHEET_URL, {
+      const response = await fetch(LEAD_API_URL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: urlParams.toString()
       });
-      return true;
+      const result = await response.json();
+      return response.ok && result.result === 'success';
     } catch (err) {
       console.error("Lỗi kết nối tới Google Sheets:", err);
       return false;

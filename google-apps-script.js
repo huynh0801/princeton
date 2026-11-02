@@ -20,8 +20,8 @@
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
-  // Khóa 10 giây để chống xung đột ghi dữ liệu đồng thời nếu nhiều phụ huynh gửi cùng lúc
-  lock.tryLock(10000);
+  // Serialize writes and rate-limit duplicate submissions by phone.
+  if (!lock.tryLock(10000)) return jsonResponse({ result: "error", message: "busy" });
 
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -38,7 +38,27 @@ function doPost(e) {
       }
     }
 
-    var timestamp = params.createdAt || Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm:ss");
+    // The endpoint is public; reject malformed or oversized submissions server-side.
+    var name = cleanText(params.name, 100);
+    var phone = cleanText(params.phone, 24);
+    var email = cleanText(params.email, 254);
+    var childAge = cleanText(params.childAge, 40);
+    var campus = cleanText(params.campus, 120);
+    var notes = cleanText(params.notes, 500);
+    if (!name || !/^\+?[0-9 ().-]{8,24}$/.test(phone)) {
+      return jsonResponse({ result: "error", message: "invalid input" });
+    }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return jsonResponse({ result: "error", message: "invalid input" });
+    }
+    var phoneKey = phone.replace(/\D/g, "");
+    var cache = CacheService.getScriptCache();
+    if (cache.get("lead:" + phoneKey)) {
+      return jsonResponse({ result: "error", message: "duplicate" });
+    }
+    cache.put("lead:" + phoneKey, "1", 60);
+
+    var timestamp = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm:ss");
 
     // =====================================================================
     // CHỈ THU THẬP LEAD PHỤ HUYNH ĐĂNG KÝ THAM QUAN / TUYỂN SINH
@@ -86,27 +106,38 @@ function doPost(e) {
 
     // Ghi dữ liệu phụ huynh mới vào dòng tiếp theo
     sheetParent.appendRow([
-      timestamp,
-      params.name || '',
-      params.phone ? "'" + params.phone : '', // Thêm nháy đơn phía trước để Google Sheet không làm mất số 0 đầu
-      params.childAge || '',
-      params.email || '',
-      params.campus || '',
-      params.notes || ''
+      safeCell(timestamp),
+      safeCell(name),
+      safeCell(phone),
+      safeCell(childAge),
+      safeCell(email),
+      safeCell(campus || cleanText(params.province, 120)),
+      safeCell(notes)
     ]);
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ result: "success" }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonResponse({ result: "success" });
 
   } catch (error) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ result: "error", message: error.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonResponse({ result: "error" });
 
   } finally {
     lock.releaseLock();
   }
+}
+
+function cleanText(value, maxLength) {
+  return String(value == null ? "" : value).replace(/[\u0000-\u001F\u007F]/g, " ").trim().slice(0, maxLength);
+}
+
+// Force user-controlled values to be stored as plain text in Google Sheets.
+function safeCell(value) {
+  var text = String(value == null ? "" : value);
+  return /^[\s]*[=+\-@]/.test(text) ? "'" + text : text;
+}
+
+function jsonResponse(payload) {
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function doGet(e) {
