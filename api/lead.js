@@ -3,18 +3,38 @@ const ALLOWED_FIELDS = new Set([
   "model", "budget", "notes", "createdAt"
 ]);
 
+// Sliding window in-memory rate limiter per IP: max 15 requests per minute
+const ipHits = new Map();
+
+function checkRateLimit(ip) {
+  if (!ip) return true;
+  const now = Date.now();
+  const windowMs = 60000;
+  const maxHits = 15;
+
+  const record = ipHits.get(ip) || { count: 0, resetTime: now + windowMs };
+  if (now > record.resetTime) {
+    record.count = 1;
+    record.resetTime = now + windowMs;
+    ipHits.set(ip, record);
+    return true;
+  }
+  record.count++;
+  ipHits.set(ip, record);
+  return record.count <= maxHits;
+}
+
 function isAllowedOrigin(originHeader) {
   if (!originHeader) return true;
   try {
     const parsed = new URL(originHeader);
     const hostname = parsed.hostname.toLowerCase();
-    return (
-      hostname === "localhost" ||
-      hostname === "127.0.0.1" ||
-      hostname === "princetonacademy.vn" ||
-      hostname.endsWith(".princetonacademy.vn") ||
-      hostname.endsWith(".vercel.app")
-    );
+    if (hostname === "localhost" || hostname === "127.0.0.1") return true;
+    if (hostname === "princetonacademy.vn" || hostname.endsWith(".princetonacademy.vn")) return true;
+    if (hostname === "princetonpartner.vercel.app") return true;
+    // Allow official and branch preview deployments for Princeton Academy
+    if (hostname.startsWith("princeton") && hostname.endsWith(".vercel.app")) return true;
+    return false;
   } catch {
     return false;
   }
@@ -30,6 +50,14 @@ module.exports = async function handler(req, res) {
   const origin = req.headers.origin || req.headers.referer;
   if (!isAllowedOrigin(origin)) {
     return res.status(403).json({ result: "error", message: "unauthorized origin" });
+  }
+
+  // Rate Limiting by client IP
+  const rawIp = req.headers["x-forwarded-for"] || (req.socket && req.socket.remoteAddress) || "";
+  const clientIp = String(rawIp).split(",")[0].trim();
+  if (clientIp && !checkRateLimit(clientIp)) {
+    res.setHeader("Retry-After", "60");
+    return res.status(429).json({ result: "error", message: "too many requests" });
   }
 
   try {
@@ -58,8 +86,16 @@ module.exports = async function handler(req, res) {
     for (const [key, value] of incoming.entries()) {
       if (ALLOWED_FIELDS.has(key)) outgoing.append(key, value.slice(0, 1000));
     }
-    if (!outgoing.get("name") || !outgoing.get("phone")) {
-      return res.status(400).json({ result: "error" });
+
+    const name = outgoing.get("name");
+    const phone = outgoing.get("phone");
+    if (!name || !phone) {
+      return res.status(400).json({ result: "error", message: "missing required fields" });
+    }
+
+    // Server-side strict phone validation
+    if (!/^\+?[0-9 ().-]{8,24}$/.test(phone)) {
+      return res.status(400).json({ result: "error", message: "invalid phone" });
     }
 
     // Optional secret token shared with Google Apps Script

@@ -130,6 +130,59 @@ test('Serverless API (api/lead.js) Security Tests', async (t) => {
     assert.strictEqual(statusCode, 403, 'Should reject untrusted origin with 403');
     assert.strictEqual(responseData.result, 'error');
   });
+
+  await t.test('api/lead rejects untrusted third-party .vercel.app origins', async () => {
+    const req = {
+      method: 'POST',
+      headers: {
+        origin: 'https://random-scam-site.vercel.app'
+      },
+      body: {
+        name: 'Target User',
+        phone: '0988284799'
+      }
+    };
+
+    let statusCode = null;
+    const res = {
+      status(code) { statusCode = code; return this; },
+      json() { return this; },
+      setHeader() {}
+    };
+
+    await handler(req, res);
+    assert.strictEqual(statusCode, 403, 'Should reject arbitrary vercel.app origin with 403');
+  });
+
+  await t.test('api/lead validates phone format and rejects malformed numbers', async () => {
+    const req = {
+      method: 'POST',
+      headers: {
+        origin: 'https://princetonacademy.vn'
+      },
+      body: {
+        name: 'Target User',
+        phone: 'invalid_phone_letters'
+      }
+    };
+
+    let statusCode = null;
+    const res = {
+      status(code) { statusCode = code; return this; },
+      json() { return this; },
+      setHeader() {}
+    };
+
+    await handler(req, res);
+    assert.strictEqual(statusCode, 400, 'Should reject invalid phone with 400');
+  });
+
+  await t.test('FontAwesome stylesheet includes Subresource Integrity (SRI)', () => {
+    const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+    const partnerHtml = fs.readFileSync(path.join(__dirname, '../partner.html'), 'utf8');
+    assert.match(indexHtml, /cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome[\s\S]*?integrity=/, 'index.html must have SRI integrity for FontAwesome');
+    assert.match(partnerHtml, /cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome[\s\S]*?integrity=/, 'partner.html must have SRI integrity for FontAwesome');
+  });
 });
 
 test('serve.js Path Traversal & Robustness Tests', async (t) => {
