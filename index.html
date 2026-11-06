@@ -7,7 +7,7 @@
   <meta name="description" content="Princeton Academy - Hệ thống mầm non quốc tế chuẩn Anh - Mỹ với Khung PEAK và Chương trình tư duy phản biện sớm ECT. Tuyển sinh và Hợp tác chiến lược 10 cơ sở toàn quốc.">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/logo/LOGO%20PRINCETON%20PNG-01.png">
+  <link rel="icon" type="image/png" href="assets/logo/logo-crest.png">
   
   <!-- Google Fonts: Be Vietnam Pro & Merriweather -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +45,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=5">
+  <link rel="stylesheet" href="assets/css/styles.css?v=6">
 </head>
 <body class="bg-[#FCFAF7] text-[#2D2D2D] antialiased selection:bg-[#8C1823] selection:text-white">
 
@@ -1124,7 +1124,126 @@
               Bấm chọn cơ sở để xem bản đồ & chỉ đường:
             </h4>
             <div id="campuses-list" class="max-h-[350px] overflow-y-auto pr-1 space-y-1">
-              <!-- Rendered via JS with sharp rectangular styling -->
+              <div onclick="selectCampus(0)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer active" id="campus-btn-0">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">1</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Ecopark Hải Phòng</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Hải Phòng</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Số 6, Triệu Việt Vương, KĐT Ecopark, phường Tân Hưng, TP Hải Phòng</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(1)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-1">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">2</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Kẻ Sặt Hải Phòng</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Hải Phòng</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Số 76, Lạc Long Quân, Kẻ Sặt, Bình Giang, TP Hải Phòng</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(2)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-2">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">3</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Lai Vu Hải Phòng</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Hải Phòng</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Kiot 19-20, Lai Vu, Lai Khê, Hải Phòng</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(3)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">4</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Bắc Sơn Đà Nẵng</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Đà Nẵng</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">88 Bắc Sơn, An Khê, Thanh Khê, TP. Đà Nẵng</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(4)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">5</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Tây Nam Linh Đàm Hà Nội</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Hà Nội</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">BT5-TT4A, KĐT Tây Nam Linh Đàm, Hoàng Mai, Hà Nội</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(5)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-5">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">6</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Lạc Hồng Phúc Hưng Yên</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Hưng Yên</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Đường Nguyễn Bình (khu đô thị Lạc Hồng Phúc), Mỹ Hào, Hưng Yên</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(6)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-6">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">7</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Nam Viên Campus (Phú Mỹ Hưng)</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">TP. Hồ Chí Minh</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Nam Viên Campus: 33 Đường 16, Khu phố Nam Viên, Phường Tân Mỹ, TP.HCM</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(7)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-7">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">8</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Mỹ Gia Campus (Phú Mỹ Hưng)</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">TP. Hồ Chí Minh</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Mỹ Gia Campus: 10 Đường 18, Khu phố Mỹ Gia, Phường Tân Mỹ, TP.HCM</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(8)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-8">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">9</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Lê Quý Đôn Đà Nẵng</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Đà Nẵng</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Số 45–47 Lê Quý Đôn, phường Hòa Cường, quận Hải Châu, TP. Đà Nẵng</p>
+                  </div>
+                </div>
+              </div>
+              <div onclick="selectCampus(9)" class="campus-item p-3.5 bg-white mb-2 border border-gray-200 cursor-pointer" id="campus-btn-9">
+                <div class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#8C1823] text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">10</div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between">
+                      <h4 class="font-bold text-sm text-[#8C1823]">Princeton Academy Hòa Xuân Đà Nẵng</h4>
+                      <span class="text-[10px] px-2 py-0.5 bg-gray-100 text-[#8C1823] font-semibold border border-gray-300 uppercase">Đà Nẵng</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">01 Nguyễn Ân, Hòa Xuân, Cẩm Lệ, TP. Đà Nẵng</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1142,7 +1261,7 @@
           <div class="p-6 sm:p-7">
             
             <div class="text-center mb-6">
-              <img src="assets/logo/LOGO%20PRINCETON%20PNG-01.png" alt="Princeton Crest" class="w-10 h-10 mx-auto mb-2 object-contain">
+              <img src="assets/logo/logo-crest.png" alt="Princeton Crest" class="w-10 h-10 mx-auto mb-2 object-contain">
               <h3 id="form-heading" class="font-extrabold text-base text-[#8C1823] uppercase tracking-wide">THÔNG TIN ĐĂNG KÝ</h3>
               <p id="form-subheading" class="text-xs text-gray-600 mt-1">
                 Quý khách vui lòng điền thông tin bên dưới, nhà trường sẽ liên hệ tư vấn trong 24h.
@@ -1189,7 +1308,17 @@
                 <div>
                   <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase text-[11px]">Chọn Cơ sở quan tâm</label>
                   <select id="parent-campus-select" class="w-full text-xs px-3.5 py-2.5 border border-gray-300 focus:outline-none focus:border-[#8C1823] bg-white">
-                    <!-- Populated via JS -->
+                    <option value="">-- Chọn cơ sở gần bạn nhất --</option>
+                    <option value="Princeton Academy Ecopark Hải Phòng">Princeton Academy Ecopark Hải Phòng (Hải Phòng)</option>
+                    <option value="Princeton Academy Kẻ Sặt Hải Phòng">Princeton Academy Kẻ Sặt Hải Phòng (Hải Phòng)</option>
+                    <option value="Princeton Academy Lai Vu Hải Phòng">Princeton Academy Lai Vu Hải Phòng (Hải Phòng)</option>
+                    <option value="Princeton Academy Bắc Sơn Đà Nẵng">Princeton Academy Bắc Sơn Đà Nẵng (Đà Nẵng)</option>
+                    <option value="Princeton Academy Tây Nam Linh Đàm Hà Nội">Princeton Academy Tây Nam Linh Đàm Hà Nội (Hà Nội)</option>
+                    <option value="Princeton Academy Lạc Hồng Phúc Hưng Yên">Princeton Academy Lạc Hồng Phúc Hưng Yên (Hưng Yên)</option>
+                    <option value="Princeton Academy Nam Viên Campus (Phú Mỹ Hưng)">Princeton Academy Nam Viên Campus (Phú Mỹ Hưng) (TP. Hồ Chí Minh)</option>
+                    <option value="Princeton Academy Mỹ Gia Campus (Phú Mỹ Hưng)">Princeton Academy Mỹ Gia Campus (Phú Mỹ Hưng) (TP. Hồ Chí Minh)</option>
+                    <option value="Princeton Academy Lê Quý Đôn Đà Nẵng">Princeton Academy Lê Quý Đôn Đà Nẵng (Đà Nẵng)</option>
+                    <option value="Princeton Academy Hòa Xuân Đà Nẵng">Princeton Academy Hòa Xuân Đà Nẵng (Đà Nẵng)</option>
                   </select>
                 </div>
 
@@ -1340,7 +1469,7 @@
   </div>
 
   <!-- Main JavaScript File with Cache-Buster -->
-  <script src="assets/js/main.js?v=3"></script>
+  <script src="assets/js/main.js?v=4"></script>
 
   <!-- Inline Direct Scroll Listener Failsafe -->
   <script>

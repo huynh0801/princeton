@@ -16,7 +16,7 @@ Thumbs.db
 *.log
 npm-debug.log*
 
-# Raw assets / backups
-image/
-logo/
+# Raw assets / backups (Root directories only)
+/image/
+/logo/
 *.tmp

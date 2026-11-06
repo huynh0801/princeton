@@ -97,14 +97,20 @@ const CAMPUSES = [
 let currentCampusIndex = 0;
 
 // Khởi tạo trang khi DOM sẵn sàng
-document.addEventListener('DOMContentLoaded', () => {
+function initMainPage() {
   renderCampusesList();
   selectCampus(0);
   initFormSubmissions();
   initMobileMenu();
   initBackToTop();
   initHeaderScroll();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMainPage);
+} else {
+  initMainPage();
+}
 
 // Render danh sách 10 cơ sở - Phong cách vuông vức, tinh giản
 function renderCampusesList() {
@@ -269,7 +275,7 @@ function initFormSubmissions() {
 }
 
 function escapeHtml(value) {
-  return String(value == null ? '')
+  return String(value == null ? '' : value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

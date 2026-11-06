@@ -22,6 +22,7 @@ scripts/
 .DS_Store
 Thumbs.db
 *.log
-image/
-logo/
+# Raw root asset folders & backups (DO NOT ignore assets/logo or assets/img)
+/image/
+/logo/
 *.tmp

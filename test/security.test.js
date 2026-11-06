@@ -9,7 +9,7 @@ test('Security Header & Config Tests', async (t) => {
     assert.match(gitignore, /\.env\*/, '.gitignore should ignore .env* files');
   });
 
-  await t.test('.vercelignore blocks internal files and scripts from public deployment', () => {
+  await t.test('.vercelignore blocks internal files and scripts from public deployment but preserves assets/logo and assets/img', () => {
     const vercelignore = fs.readFileSync(path.join(__dirname, '../.vercelignore'), 'utf8');
     assert.match(vercelignore, /google-apps-script\.js/, 'Must ignore google-apps-script.js');
     assert.match(vercelignore, /serve\.js/, 'Must ignore serve.js');
@@ -17,6 +17,9 @@ test('Security Header & Config Tests', async (t) => {
     assert.match(vercelignore, /scripts\//, 'Must ignore scripts/');
     assert.match(vercelignore, /docs\//, 'Must ignore docs/');
     assert.match(vercelignore, /\*\.pdf/, 'Must ignore *.pdf');
+    // Ensure raw folders are anchored to root and not ignoring assets/logo/
+    assert.doesNotMatch(vercelignore, /(?:^|\r?\n)logo\//m, 'Must not ignore unanchored logo/ to protect assets/logo');
+    assert.doesNotMatch(vercelignore, /(?:^|\r?\n)image\//m, 'Must not ignore unanchored image/ to protect assets/img');
   });
 
   await t.test('vercel.json includes security headers (CSP, HSTS, Permissions-Policy) and removes deprecated X-XSS-Protection', () => {
@@ -43,6 +46,18 @@ test('Client-side Sanitization & Form Handling Tests', async (t) => {
     const mainJs = fs.readFileSync(path.join(__dirname, '../assets/js/main.js'), 'utf8');
     assert.match(mainJs, /const\s+(?:sent|success|res)\s*=\s*await sendToGoogleSheet/, 'main.js must capture sendToGoogleSheet result');
     assert.match(mainJs, /if\s*\(!(?:sent|success|res)\)/, 'main.js must check if result was unsuccessful');
+  });
+
+  await t.test('main.js syntax parses without error', () => {
+    const mainJs = fs.readFileSync(path.join(__dirname, '../assets/js/main.js'), 'utf8');
+    assert.doesNotThrow(() => {
+      new Function(mainJs);
+    }, 'main.js must parse with zero syntax errors');
+  });
+
+  await t.test('index.html has pre-populated campus options in parent-campus-select', () => {
+    const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
+    assert.match(indexHtml, /<select[^>]+id="parent-campus-select"[^>]*>[\s\S]*?<option value="Princeton Academy Ecopark/, 'index.html must have pre-rendered campus options');
   });
 
   await t.test('HTML forms include honeypot fields', () => {
