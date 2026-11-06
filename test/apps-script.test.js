@@ -40,8 +40,10 @@ function createSheetFactory() {
   const defaultSheet = createSheet('Sheet1', byName);
   byName.set('Sheet1', defaultSheet);
   let active = defaultSheet;
+  let openedId = null;
 
   const spreadsheet = {
+    getName: () => 'Shared Test Spreadsheet',
     getActiveSheet: () => active,
     getSheetByName: (name) => byName.get(name) || null,
     insertSheet: (name) => {
@@ -53,16 +55,26 @@ function createSheetFactory() {
 
   return {
     spreadsheet,
+    openById: (id) => {
+      openedId = id;
+      return spreadsheet;
+    },
+    getOpenedId: () => openedId,
     getSheet: (name) => byName.get(name) || null,
     getSheetNames: () => Array.from(byName.keys())
   };
 }
 
-function createSandbox(harness) {
+function createSandbox(harness, properties = {}) {
   const sandbox = {
-    SpreadsheetApp: { getActiveSpreadsheet: () => harness.spreadsheet },
+    SpreadsheetApp: {
+      getActiveSpreadsheet: () => harness.spreadsheet,
+      openById: (id) => harness.openById(id)
+    },
     PropertiesService: {
-      getScriptProperties: () => ({ getProperty: () => null })
+      getScriptProperties: () => ({
+        getProperty: (key) => properties[key] || null
+      })
     },
     CacheService: {
       getScriptCache: () => ({
@@ -200,5 +212,26 @@ test('Unified Google Apps Script Routing', async (t) => {
     assert.ok(partner, 'Partner tab must exist');
     assert.strictEqual(parent.getRows().length, 1);
     assert.strictEqual(partner.getRows().length, 1);
+  });
+
+  await t.test('SPREADSHEET_ID property overrides the Apps Script bound spreadsheet', () => {
+    const harness = createSheetFactory();
+    const sandbox = createSandbox(harness, { SPREADSHEET_ID: 'shared-sheet-id-123' });
+
+    sandbox.doPost({
+      parameter: {
+        formType: 'Đối Tác',
+        name: 'Tran Quoc Huy',
+        phone: '0988284799',
+        province: 'Đà Nẵng',
+        model: 'Mô hình Standard',
+        budget: '3-5 tỷ',
+        email: 'partner@example.com',
+        notes: 'Đăng ký từ Hero Form'
+      }
+    });
+
+    assert.strictEqual(harness.getOpenedId(), 'shared-sheet-id-123', 'Must open the configured spreadsheet');
+    assert.ok(harness.getSheet('Đối Tác'), 'Must write into the configured spreadsheet');
   });
 });

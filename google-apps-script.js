@@ -21,15 +21,17 @@
  * HƯỚNG DẪN TRIỂN KHAI:
  * 1. Tạo một Google Sheet mới.
  * 2. Extensions > Apps Script > dán toàn bộ file này vào > Lưu.
- * 3. Chạy hàm setupSheets() một lần để tạo 2 tab + header chuẩn.
- * 4. Deploy > New deployment > Web app:
- *    - Execute as: Me
- *    - Who has access: Anyone
- *    - Copy URL dạng https://script.google.com/macros/s/.../exec
- * 5. Dán URL đó vào biến môi trường GOOGLE_APPS_SCRIPT_URL của CẢ 2
+ * 3. Vào Project Settings > Script Properties > thêm:
+ *    - SPREADSHEET_ID = ID của Google Sheet dùng chung.
+ *      (Lấy trong URL: https://docs.google.com/spreadsheets/d/<ID>/edit)
+ *    - (Tùy chọn) LEAD_SECRET_TOKEN = chuỗi bí mật, phải trùng với Vercel.
+ *    Việc chỉ định SPREADSHEET_ID giúp script luôn ghi đúng file Sheet chung,
+ *    kể cả khi Apps Script đang được gắn với một file Sheet khác.
+ * 4. Chạy hàm setupSheets() một lần để tạo 2 tab + header chuẩn.
+ * 5. Deploy > Manage deployments > Edit > Version: New version > Deploy
+ *    để giữ nguyên URL Web App cũ.
+ * 6. Dán URL đó vào biến môi trường GOOGLE_APPS_SCRIPT_URL của CẢ 2
  *    project Vercel (Phụ huynh và Đối tác), sau đó redeploy.
- * 6. (Tùy chọn) Project Settings > Script Properties > thêm
- *    LEAD_SECRET_TOKEN = chuỗi bí mật, và đặt cùng biến đó trên Vercel.
  */
 
 var PARENT_SHEET = {
@@ -163,7 +165,7 @@ function writePartnerLead(timestamp, params, name, phone, email) {
  * Nếu tab đang trống, tự động ghi header và định dạng.
  */
 function ensureSheet(config) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getTargetSpreadsheet();
   var sheet = ss.getSheetByName(config.name);
 
   if (!sheet) {
@@ -202,12 +204,26 @@ function formatHeader(sheet, numCols, color, widths) {
 }
 
 /**
+ * Trả về Google Sheet đích.
+ * - Nếu Script Property SPREADSHEET_ID được đặt: luôn ghi vào file Sheet đó.
+ * - Nếu không: dùng spreadsheet đang gắn với Apps Script (hành vi cũ).
+ */
+function getTargetSpreadsheet() {
+  var spreadsheetId = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+  if (spreadsheetId && spreadsheetId.trim()) {
+    return SpreadsheetApp.openById(spreadsheetId.trim());
+  }
+  return SpreadsheetApp.getActiveSpreadsheet();
+}
+
+/**
  * Chạy hàm này một lần trong Apps Script editor để tạo sẵn 2 tab.
  */
 function setupSheets() {
   ensureSheet(PARENT_SHEET);
   ensureSheet(PARTNER_SHEET);
-  return "Đã tạo tab Phụ Huynh và Đối Tác.";
+  var ss = getTargetSpreadsheet();
+  return "Đã tạo tab Phụ Huynh và Đối Tác trong file: " + ss.getName();
 }
 
 function readParams(e) {
