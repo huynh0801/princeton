@@ -12,6 +12,9 @@ docs/
 google-apps-script.js
 serve.js
 
+# Separate partner project (deployed from its own repository)
+/princeton-academy-partner/
+
 # Internal testing & utility scripts
 test/
 scripts/

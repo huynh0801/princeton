@@ -24,11 +24,18 @@ function checkRateLimit(ip) {
   return record.count <= maxHits;
 }
 
-function isAllowedOrigin(originHeader) {
+function isAllowedOrigin(originHeader, requestHost) {
   if (!originHeader) return true;
   try {
     const parsed = new URL(originHeader);
     const hostname = parsed.hostname.toLowerCase();
+
+    // Same-origin requests, including Vercel preview deployments.
+    if (requestHost) {
+      const requestHostname = String(requestHost).split(":")[0].toLowerCase();
+      if (hostname === requestHostname) return true;
+    }
+
     if (hostname === "localhost" || hostname === "127.0.0.1") return true;
     if (hostname === "princetonacademy.vn" || hostname.endsWith(".princetonacademy.vn")) return true;
     if (hostname === "princetonpartner.vercel.app") return true;
@@ -48,7 +55,8 @@ module.exports = async function handler(req, res) {
 
   // Cross-Site Request Origin validation
   const origin = req.headers.origin || req.headers.referer;
-  if (!isAllowedOrigin(origin)) {
+  const requestHost = req.headers["x-forwarded-host"] || req.headers.host || "";
+  if (!isAllowedOrigin(origin, requestHost)) {
     return res.status(403).json({ result: "error", message: "unauthorized origin" });
   }
 
@@ -71,8 +79,9 @@ module.exports = async function handler(req, res) {
     }
 
     // Invisible Honeypot detection:
-    // If bot filled out the hidden field, silently return success without forwarding upstream
-    const honeypot = incoming.get("_hp_field");
+    // If bot filled out the hidden field, silently return success without forwarding upstream.
+    // Parents form uses _hp_field; partner forms use _hp_company.
+    const honeypot = incoming.get("_hp_field") || incoming.get("_hp_company");
     if (honeypot && honeypot.trim() !== "") {
       return res.status(200).json({ result: "success" });
     }

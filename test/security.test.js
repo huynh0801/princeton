@@ -74,9 +74,17 @@ test('Client-side Sanitization & Form Handling Tests', async (t) => {
 
   await t.test('HTML forms include honeypot fields', () => {
     const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
-    const partnerHtml = fs.readFileSync(path.join(__dirname, '../partner.html'), 'utf8');
+    const partnerHtml = fs.readFileSync(path.join(__dirname, '../princeton-academy-partner/index.html'), 'utf8');
     assert.match(indexHtml, /name="_hp_field"/, 'index.html parent form must have honeypot input');
-    assert.match(partnerHtml, /name="_hp_field"/, 'partner.html forms must have honeypot input');
+    assert.match(partnerHtml, /name="_hp_company"/, 'partner forms must have honeypot input');
+  });
+
+  await t.test('unified Apps Script routes parent and partner leads into separate tabs', () => {
+    const script = fs.readFileSync(path.join(__dirname, '../google-apps-script.js'), 'utf8');
+    assert.match(script, /PARENT_SHEET/, 'must define parent sheet config');
+    assert.match(script, /PARTNER_SHEET/, 'must define partner sheet config');
+    assert.match(script, /formType\.toLowerCase\(\) === "đối tác"/, 'must route partner leads by formType');
+    assert.match(script, /setupSheets\(\)/, 'must provide setupSheets helper');
   });
 });
 
@@ -125,6 +133,80 @@ test('Serverless API (api/lead.js) Security Tests', async (t) => {
     assert.strictEqual(statusCode, 200);
     assert.strictEqual(responseData.result, 'success');
     assert.strictEqual(upstreamCalled, false, 'Upstream must NOT be called when honeypot is filled');
+  });
+
+  await t.test('api/lead drops partner honeypot (_hp_company) without forwarding upstream', async () => {
+    let upstreamCalled = false;
+    process.env.GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/dummy/exec';
+
+    const originalFetch = global.fetch;
+    global.fetch = async () => {
+      upstreamCalled = true;
+      return { ok: true, text: async () => JSON.stringify({ result: 'success' }) };
+    };
+
+    let statusCode = null;
+    let responseData = null;
+    const res = {
+      status(code) { statusCode = code; return this; },
+      json(data) { responseData = data; return this; },
+      setHeader() {}
+    };
+
+    const req = {
+      method: 'POST',
+      headers: { origin: 'https://princetonpartner.vercel.app' },
+      body: {
+        formType: 'Đối Tác',
+        name: 'Spam Bot',
+        phone: '0988284799',
+        _hp_company: 'I am a bot'
+      }
+    };
+
+    await handler(req, res);
+    global.fetch = originalFetch;
+
+    assert.strictEqual(statusCode, 200);
+    assert.strictEqual(responseData.result, 'success');
+    assert.strictEqual(upstreamCalled, false, 'Upstream must NOT be called when partner honeypot is filled');
+  });
+
+  await t.test('api/lead accepts same-origin requests from Vercel preview deployments', async () => {
+    let upstreamCalled = false;
+    process.env.GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/dummy/exec';
+
+    const originalFetch = global.fetch;
+    global.fetch = async () => {
+      upstreamCalled = true;
+      return { ok: true, text: async () => JSON.stringify({ result: 'success' }) };
+    };
+
+    let statusCode = null;
+    const res = {
+      status(code) { statusCode = code; return this; },
+      json() { return this; },
+      setHeader() {}
+    };
+
+    const req = {
+      method: 'POST',
+      headers: {
+        origin: 'https://landingpage2-preview-22130107.vercel.app',
+        host: 'landingpage2-preview-22130107.vercel.app'
+      },
+      body: {
+        formType: 'Đối Tác',
+        name: 'Nguyen Van An',
+        phone: '0988284799'
+      }
+    };
+
+    await handler(req, res);
+    global.fetch = originalFetch;
+
+    assert.strictEqual(statusCode, 200);
+    assert.strictEqual(upstreamCalled, true, 'Same-origin preview request must be forwarded');
   });
 
   await t.test('api/lead rejects untrusted third-party origins (CSRF protection)', async () => {
@@ -206,9 +288,24 @@ test('Serverless API (api/lead.js) Security Tests', async (t) => {
 
   await t.test('FontAwesome stylesheet includes Subresource Integrity (SRI)', () => {
     const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
-    const partnerHtml = fs.readFileSync(path.join(__dirname, '../partner.html'), 'utf8');
+    const partnerHtml = fs.readFileSync(path.join(__dirname, '../princeton-academy-partner/index.html'), 'utf8');
     assert.match(indexHtml, /cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome[\s\S]*?integrity=/, 'index.html must have SRI integrity for FontAwesome');
-    assert.match(partnerHtml, /cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome[\s\S]*?integrity=/, 'partner.html must have SRI integrity for FontAwesome');
+    assert.match(partnerHtml, /cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome[\s\S]*?integrity=/, 'partner index.html must have SRI integrity for FontAwesome');
+  });
+});
+
+test('Partner Project Integration Tests', async (t) => {
+  await t.test('partner project sends leads through the shared /api/lead proxy', () => {
+    const partnerJs = fs.readFileSync(path.join(__dirname, '../princeton-academy-partner/assets/js/partner.js'), 'utf8');
+    assert.match(partnerJs, /const LEAD_API_URL = "\/api\/lead"/, 'partner.js must use /api/lead');
+    assert.doesNotMatch(partnerJs, /no-cors/, 'partner.js must not post with no-cors');
+    assert.doesNotMatch(partnerJs, /GOOGLE_SHEET_URL/, 'partner.js must not hard-code the Apps Script URL');
+    assert.ok(fs.existsSync(path.join(__dirname, '../princeton-academy-partner/api/lead.js')), 'partner project must include api/lead.js');
+  });
+
+  await t.test('partner index.html loads the cache-busted partner script', () => {
+    const partnerHtml = fs.readFileSync(path.join(__dirname, '../princeton-academy-partner/index.html'), 'utf8');
+    assert.match(partnerHtml, /assets\/js\/partner\.js\?v=4/, 'partner index.html must load partner.js?v=4');
   });
 });
 

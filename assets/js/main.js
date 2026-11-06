@@ -4,9 +4,9 @@
  */
 
 // =========================================================================
-// CẤU HÌNH GOOGLE SHEETS TÍCH HỢP FORM ĐĂNG KÝ
-// Hướng dẫn: Dán Web App URL của Google Apps Script vào biến dưới đây.
-// Ví dụ: const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/.../exec";
+// FORM ĐĂNG KÝ
+// Tất cả lead được gửi qua serverless proxy /api/lead.
+// Cấu hình URL Apps Script bằng biến môi trường GOOGLE_APPS_SCRIPT_URL trên Vercel.
 // =========================================================================
 const LEAD_API_URL = "/api/lead";
 

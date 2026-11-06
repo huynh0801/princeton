@@ -1,138 +1,244 @@
 /**
  * =========================================================================
- * GOOGLE APPS SCRIPT: TỰ ĐỘNG THU THẬP LEAD PHỤ HUYNH VÀO GOOGLE SHEETS
- * Dành riêng cho Landing Page: Tuyển sinh Princeton Academy (Team Marketing)
+ * GOOGLE APPS SCRIPT: THU THẬP LEAD DÙNG CHUNG CHO 2 LANDING PAGE
  * =========================================================================
- * 
- * ĐÃ LOẠI BỎ HOÀN TOÀN: Logic tự tạo sheet "Đối Tác".
- * File này CHỈ phục vụ duy nhất một mục đích: Nhận lead Phụ Huynh.
- * 
- * HƯỚNG DẪN CẬP NHẬT TRÊN GOOGLE SHEETS (GIỮ NGUYÊN LINK CŨ):
- * 1. Mở Google Sheet của bạn > Vào Tiện ích mở rộng (Extensions) > Apps Script.
- * 2. Xóa hết code cũ, dán toàn bộ nội dung file này vào > Bấm icon Lưu (Ctrl + S).
- * 3. Để cập nhật mà KHÔNG BỊ ĐỔI LINK WEB APP:
- *    - Bấm "Triển khai" (Deploy) > Chọn "Quản lý bản triển khai" (Manage deployments).
- *    - Bấm vào icon Cây bút (Chỉnh sửa / Edit) ở góc trên bên phải.
- *    - Ở mục "Phiên bản" (Version): Chọn "Phiên bản mới" (New version).
- *    - Bấm "Triển khai" (Deploy).
- *    -> Link URL Web App sẽ được GIỮ NGUYÊN 100%, không cần đổi gì trên landing page.
+ *
+ * Script này phục vụ đồng thời:
+ * 1. Landing Page Phụ Huynh  -> ghi vào tab "Phụ Huynh"
+ * 2. Landing Page Đối Tác    -> ghi vào tab "Đối Tác"
+ *
+ * Cả 2 website Vercel gửi dữ liệu qua serverless API /api/lead, API này
+ * chuyển tiếp tới cùng một URL Web App của script.
+ *
+ * CÁC LỚP BẢO MẬT:
+ * - Chống Spreadsheet / Formula Injection (CWE-1236).
+ * - Chặn bot qua honeypot (_hp_field của Phụ huynh, _hp_company của Đối tác).
+ * - Rate limiting theo số điện thoại qua CacheService (60 giây).
+ * - Khóa luồng chống race condition khi nhiều lead gửi đồng thời.
+ * - Timestamp lấy từ server, không tin client.
+ * - (Tùy chọn) Xác thực token chia sẻ giữa Vercel API và Apps Script.
+ *
+ * HƯỚNG DẪN TRIỂN KHAI:
+ * 1. Tạo một Google Sheet mới.
+ * 2. Extensions > Apps Script > dán toàn bộ file này vào > Lưu.
+ * 3. Chạy hàm setupSheets() một lần để tạo 2 tab + header chuẩn.
+ * 4. Deploy > New deployment > Web app:
+ *    - Execute as: Me
+ *    - Who has access: Anyone
+ *    - Copy URL dạng https://script.google.com/macros/s/.../exec
+ * 5. Dán URL đó vào biến môi trường GOOGLE_APPS_SCRIPT_URL của CẢ 2
+ *    project Vercel (Phụ huynh và Đối tác), sau đó redeploy.
+ * 6. (Tùy chọn) Project Settings > Script Properties > thêm
+ *    LEAD_SECRET_TOKEN = chuỗi bí mật, và đặt cùng biến đó trên Vercel.
  */
+
+var PARENT_SHEET = {
+  name: "Phụ Huynh",
+  color: "#8C1823",
+  headers: [
+    "Thời Gian Gửi",
+    "Họ & Tên Phụ Huynh",
+    "Số Điện Thoại",
+    "Độ Tuổi Bé",
+    "Email Liên Hệ",
+    "Cơ Sở Quan Tâm",
+    "Ghi Chú Gửi Trường"
+  ],
+  widths: [160, 200, 140, 150, 200, 280, 300]
+};
+
+var PARTNER_SHEET = {
+  name: "Đối Tác",
+  color: "#C89D35",
+  headers: [
+    "Thời Gian Gửi",
+    "Họ & Tên Nhà Đầu Tư",
+    "Số Điện Thoại",
+    "Tỉnh / Thành Phố",
+    "Mô Hình Quan Tâm",
+    "Ngân Sách Dự Kiến",
+    "Email",
+    "Ghi Chú"
+  ],
+  widths: [160, 200, 150, 180, 220, 200, 180, 300]
+};
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
-  // Serialize writes and rate-limit duplicate submissions by phone.
-  if (!lock.tryLock(10000)) return jsonResponse({ result: "error", message: "busy" });
+  if (!lock.tryLock(10000)) {
+    return jsonResponse({ result: "error", message: "busy" });
+  }
 
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var params = {};
+    var params = readParams(e);
 
-    // 1. Phân tích dữ liệu nhận được (hỗ trợ FormData, x-www-form-urlencoded và JSON)
-    if (e && e.parameter && Object.keys(e.parameter).length > 0) {
-      params = e.parameter;
-    } else if (e && e.postData && e.postData.contents) {
-      try {
-        params = JSON.parse(e.postData.contents);
-      } catch (jsonErr) {
-        params = {};
-      }
+    // Honeypot: bot điền vào trường ẩn -> trả success giả, không ghi sheet.
+    if (isFilled(params._hp_field) || isFilled(params._hp_company)) {
+      return jsonResponse({ result: "success" });
     }
 
-    // The endpoint is public; reject malformed or oversized submissions server-side.
+    // (Tùy chọn) Token chia sẻ giữa API Vercel và Apps Script.
+    var expectedToken = PropertiesService.getScriptProperties().getProperty("LEAD_SECRET_TOKEN");
+    if (expectedToken && String(params.secretToken || "") !== expectedToken) {
+      return jsonResponse({ result: "error", message: "unauthorized" });
+    }
+
+    var formType = cleanText(params.formType, 40);
     var name = cleanText(params.name, 100);
     var phone = cleanText(params.phone, 24);
     var email = cleanText(params.email, 254);
-    var childAge = cleanText(params.childAge, 40);
-    var campus = cleanText(params.campus, 120);
-    var notes = cleanText(params.notes, 500);
-    if (!name || !/^\+?[0-9 ().-]{8,24}$/.test(phone)) {
+    var phoneKey = phone.replace(/\D/g, "");
+
+    if (!name || name.length < 2 || !/^\+?[0-9 ().-]{8,24}$/.test(phone) ||
+        phoneKey.length < 8 || phoneKey.length > 15) {
       return jsonResponse({ result: "error", message: "invalid input" });
     }
+
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return jsonResponse({ result: "error", message: "invalid input" });
     }
-    var phoneKey = phone.replace(/\D/g, "");
+
+    // Rate limit theo số điện thoại, dùng chung cho cả 2 loại form.
     var cache = CacheService.getScriptCache();
-    if (cache.get("lead:" + phoneKey)) {
+    var cacheKey = "lead:" + phoneKey;
+    if (cache.get(cacheKey)) {
       return jsonResponse({ result: "error", message: "duplicate" });
     }
-    cache.put("lead:" + phoneKey, "1", 60);
+    cache.put(cacheKey, "1", 60);
 
     var timestamp = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm:ss");
 
-    // =====================================================================
-    // CHỈ THU THẬP LEAD PHỤ HUYNH ĐĂNG KÝ THAM QUAN / TUYỂN SINH
-    // Không tạo thêm bất kỳ Sheet Đối Tác nào khác
-    // =====================================================================
-    var sheetParent = ss.getSheetByName("Phụ Huynh");
-    
-    // Nếu chưa có sheet "Phụ Huynh", tự động khởi tạo chuẩn chỉnh
-    if (!sheetParent) {
-      var activeSheet = ss.getActiveSheet();
-      // Nếu sheet hiện tại là sheet trống mặc định ("Trang tính 1" hoặc "Sheet1"), đổi tên trực tiếp
-      if (activeSheet && (activeSheet.getName() === "Trang tính 1" || activeSheet.getName() === "Sheet1") && activeSheet.getLastRow() === 0) {
-        sheetParent = activeSheet;
-        sheetParent.setName("Phụ Huynh");
-      } else {
-        sheetParent = ss.insertSheet("Phụ Huynh");
-      }
-
-      var headersParent = [
-        "Thời Gian Gửi", 
-        "Họ & Tên Phụ Huynh", 
-        "Số Điện Thoại", 
-        "Độ Tuổi Bé", 
-        "Email Liên Hệ", 
-        "Cơ Sở Quan Tâm", 
-        "Ghi Chú Gửi Trường"
-      ];
-      sheetParent.appendRow(headersParent);
-      var headerRangeParent = sheetParent.getRange(1, 1, 1, headersParent.length);
-      headerRangeParent.setFontWeight("bold");
-      headerRangeParent.setBackground("#8C1823"); // Màu đỏ Crimson Princeton chuẩn thương hiệu
-      headerRangeParent.setFontColor("#FFFFFF");
-      headerRangeParent.setHorizontalAlignment("center");
-      sheetParent.setFrozenRows(1);
-
-      // Căn độ rộng cột đẹp mắt
-      sheetParent.setColumnWidth(1, 160);
-      sheetParent.setColumnWidth(2, 200);
-      sheetParent.setColumnWidth(3, 140);
-      sheetParent.setColumnWidth(4, 150);
-      sheetParent.setColumnWidth(5, 200);
-      sheetParent.setColumnWidth(6, 280);
-      sheetParent.setColumnWidth(7, 300);
+    if (formType.toLowerCase() === "đối tác") {
+      writePartnerLead(timestamp, params, name, phone, email);
+    } else {
+      writeParentLead(timestamp, params, name, phone, email);
     }
 
-    // Ghi dữ liệu phụ huynh mới vào dòng tiếp theo
-    sheetParent.appendRow([
-      safeCell(timestamp),
-      safeCell(name),
-      safeCell(phone),
-      safeCell(childAge),
-      safeCell(email),
-      safeCell(campus || cleanText(params.province, 120)),
-      safeCell(notes)
-    ]);
-
     return jsonResponse({ result: "success" });
-
   } catch (error) {
     return jsonResponse({ result: "error" });
-
   } finally {
     lock.releaseLock();
   }
 }
 
-function cleanText(value, maxLength) {
-  return String(value == null ? "" : value).replace(/[\u0000-\u001F\u007F]/g, " ").trim().slice(0, maxLength);
+function writeParentLead(timestamp, params, name, phone, email) {
+  var sheet = ensureSheet(PARENT_SHEET);
+  var childAge = cleanText(params.childAge, 40);
+  var campus = cleanText(params.campus || params.province, 120);
+  var notes = cleanText(params.notes, 500);
+
+  sheet.appendRow([
+    safeCell(timestamp),
+    safeCell(name),
+    safeCell(phone),
+    safeCell(childAge),
+    safeCell(email),
+    safeCell(campus),
+    safeCell(notes)
+  ]);
 }
 
-// Force user-controlled values to be stored as plain text in Google Sheets.
+function writePartnerLead(timestamp, params, name, phone, email) {
+  var sheet = ensureSheet(PARTNER_SHEET);
+  var province = cleanText(params.province, 120);
+  var model = cleanText(params.model, 120);
+  var budget = cleanText(params.budget, 120);
+  var notes = cleanText(params.notes, 500);
+
+  sheet.appendRow([
+    safeCell(timestamp),
+    safeCell(name),
+    safeCell(phone),
+    safeCell(province),
+    safeCell(model),
+    safeCell(budget),
+    safeCell(email),
+    safeCell(notes)
+  ]);
+}
+
+/**
+ * Tạo tab + header chuẩn nếu chưa tồn tại.
+ * Nếu tab đang trống, tự động ghi header và định dạng.
+ */
+function ensureSheet(config) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(config.name);
+
+  if (!sheet) {
+    var activeSheet = ss.getActiveSheet();
+    var isDefaultEmptySheet = activeSheet &&
+      activeSheet.getLastRow() === 0 &&
+      (activeSheet.getName() === "Sheet1" || activeSheet.getName() === "Trang tính 1");
+
+    if (isDefaultEmptySheet) {
+      activeSheet.setName(config.name);
+      sheet = activeSheet;
+    } else {
+      sheet = ss.insertSheet(config.name);
+    }
+  }
+
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(config.headers);
+    formatHeader(sheet, config.headers.length, config.color, config.widths);
+  }
+
+  return sheet;
+}
+
+function formatHeader(sheet, numCols, color, widths) {
+  var headerRange = sheet.getRange(1, 1, 1, numCols);
+  headerRange.setFontWeight("bold");
+  headerRange.setBackground(color);
+  headerRange.setFontColor("#FFFFFF");
+  headerRange.setHorizontalAlignment("center");
+  sheet.setFrozenRows(1);
+
+  for (var i = 0; i < widths.length; i++) {
+    sheet.setColumnWidth(i + 1, widths[i]);
+  }
+}
+
+/**
+ * Chạy hàm này một lần trong Apps Script editor để tạo sẵn 2 tab.
+ */
+function setupSheets() {
+  ensureSheet(PARENT_SHEET);
+  ensureSheet(PARTNER_SHEET);
+  return "Đã tạo tab Phụ Huynh và Đối Tác.";
+}
+
+function readParams(e) {
+  if (e && e.parameter && Object.keys(e.parameter).length > 0) {
+    return e.parameter;
+  }
+  if (e && e.postData && e.postData.contents) {
+    try {
+      return JSON.parse(e.postData.contents);
+    } catch (jsonErr) {
+      return {};
+    }
+  }
+  return {};
+}
+
+function isFilled(value) {
+  return String(value == null ? "" : value).trim().length > 0;
+}
+
+function cleanText(value, maxLength) {
+  return String(value == null ? "" : value)
+    .replace(/[\u0000-\u001F\u007F]/g, " ")
+    .trim()
+    .slice(0, maxLength);
+}
+
+// Ép giá trị người dùng nhập thành text thuần trong Google Sheets.
 function safeCell(value) {
   var text = String(value == null ? "" : value);
-  return /^[\s]*[=+\-@]/.test(text) ? "'" + text : text;
+  return /^\s*[=+\-@]/.test(text) ? "'" + text : text;
 }
 
 function jsonResponse(payload) {
@@ -142,6 +248,6 @@ function jsonResponse(payload) {
 
 function doGet(e) {
   return ContentService
-    .createTextOutput("Princeton Academy Lead Collection Web App is active (Parent Enrollment Only).")
+    .createTextOutput("Princeton Academy shared lead collection Web App is active (Parents + Partners).")
     .setMimeType(ContentService.MimeType.TEXT);
 }
