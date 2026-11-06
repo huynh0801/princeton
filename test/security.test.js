@@ -55,6 +55,18 @@ test('Client-side Sanitization & Form Handling Tests', async (t) => {
     }, 'main.js must parse with zero syntax errors');
   });
 
+  await t.test('app.js syntax parses without error and includes sanitization and form handling', () => {
+    const appJs = fs.readFileSync(path.join(__dirname, '../assets/js/app.js'), 'utf8');
+    assert.doesNotThrow(() => {
+      new Function(appJs);
+    }, 'app.js must parse with zero syntax errors');
+    assert.match(appJs, /function escapeHtml\(/, 'app.js must have escapeHtml');
+    assert.match(appJs, /escapeHtml\(name\)/, 'app.js must escape name');
+    assert.match(appJs, /escapeHtml\(phone\)/, 'app.js must escape phone');
+    assert.match(appJs, /const\s+sent\s*=\s*await sendToGoogleSheet/, 'app.js must capture sendToGoogleSheet result');
+    assert.match(appJs, /if\s*\(!sent\)/, 'app.js must check if result was unsuccessful');
+  });
+
   await t.test('index.html has pre-populated campus options in parent-campus-select', () => {
     const indexHtml = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
     assert.match(indexHtml, /<select[^>]+id="parent-campus-select"[^>]*>[\s\S]*?<option value="Princeton Academy Ecopark/, 'index.html must have pre-rendered campus options');
