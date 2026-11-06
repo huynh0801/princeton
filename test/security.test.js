@@ -303,9 +303,12 @@ test('Partner Project Integration Tests', async (t) => {
     assert.ok(fs.existsSync(path.join(__dirname, '../princeton-academy-partner/api/lead.js')), 'partner project must include api/lead.js');
   });
 
-  await t.test('partner index.html loads the cache-busted partner script', () => {
+  await t.test('partner index.html loads the cache-busted partner script and uses autofill-safe honeypots', () => {
     const partnerHtml = fs.readFileSync(path.join(__dirname, '../princeton-academy-partner/index.html'), 'utf8');
-    assert.match(partnerHtml, /assets\/js\/partner\.js\?v=4/, 'partner index.html must load partner.js?v=4');
+    assert.match(partnerHtml, /assets\/js\/partner\.js\?v=5/, 'partner index.html must load partner.js?v=5');
+    assert.doesNotMatch(partnerHtml, /<label[^>]+for="(?:hero|final)-company-hp"/, 'honeypot must not have an autofillable label');
+    assert.match(partnerHtml, /type="checkbox"[^>]+id="hero-hp-verify"/, 'hero honeypot must be a hidden checkbox');
+    assert.match(partnerHtml, /type="checkbox"[^>]+id="final-hp-verify"/, 'final honeypot must be a hidden checkbox');
   });
 });
 
